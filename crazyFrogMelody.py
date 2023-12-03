@@ -35,21 +35,20 @@ sixteenth = .125*.9
 
 count = 0
 
-def playMelodyNote(freq, duration, rest, *pin):
+def playMelodyNote(freq, duration, rest, *LED):
        #print("pin: ",pin)
        buzz.start(50)
        buzz.ChangeFrequency(freq)
-       GPIO.output(pin, 1)
+       GPIO.output(LED, 1)
        sleep(duration)
        buzz.stop()
-       GPIO.output(pin, 0)
+       GPIO.output(LED, 0)
        sleep(rest)
 
 def measure1():
         global count
         # F
         playMelodyNote(f,quarter/2,quarter/2, tonicPin)
-
        
         # Ab
         playMelodyNote(*[f*(6/5),eighth+(sixteenth/2),sixteenth/2] if count < 1 else [f*(6/5),eighth+(sixteenth/2),sixteenth/2,AbLED])
