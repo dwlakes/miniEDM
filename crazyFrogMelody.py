@@ -3,8 +3,27 @@ from time import sleep
 import threading
 
 buzzPin = 17
+tonicPin = 4
+cLED = 6
+octaveLED = 21
+AbLED = 22
+gLED = 27
+BbLED = 5
+DbLED = 13
+EbLED = 19
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(buzzPin, GPIO.OUT)
+GPIO.setup(tonicPin, GPIO.OUT)
+GPIO.setup(cLED, GPIO.OUT)
+GPIO.setup(octaveLED, GPIO.OUT)
+GPIO.setup(AbLED, GPIO.OUT)
+GPIO.setup(gLED, GPIO.OUT)
+GPIO.setup(BbLED, GPIO.OUT)
+GPIO.setup(DbLED, GPIO.OUT)
+GPIO.setup(BbLED, GPIO.OUT)
+GPIO.setup(EbLED, GPIO.OUT)
+
 buzz = GPIO.PWM(buzzPin, 349.23)
 
 f = 349.23
@@ -14,129 +33,104 @@ quarter = .5*.9
 eighth = .25*.9
 sixteenth = .125*.9
 
-def playMelodyNote(freq, duration, rest):
+count = 0
+
+def playMelodyNote(freq, duration, rest, *pin):
+       #print("pin: ",pin)
        buzz.start(50)
        buzz.ChangeFrequency(freq)
+       GPIO.output(pin, 1)
        sleep(duration)
        buzz.stop()
+       GPIO.output(pin, 0)
        sleep(rest)
 
 def measure1():
+        global count
         # F
-        playMelodyNote(f,quarter/2,quarter/2)
+        playMelodyNote(f,quarter/2,quarter/2, tonicPin)
+
        
         # Ab
-        playMelodyNote(f*(6/5),eighth+(sixteenth/2),sixteenth/2)
+        playMelodyNote(*[f*(6/5),eighth+(sixteenth/2),sixteenth/2] if count < 1 else [f*(6/5),eighth+(sixteenth/2),sixteenth/2,AbLED])
         
         # F
-        playMelodyNote(f,eighth/2,eighth/2)
+        playMelodyNote(*[f,eighth/2,eighth/2] if count < 1 else [f,eighth/2,eighth/2, tonicPin])
         
         # F
-        playMelodyNote(f,sixteenth/2,sixteenth/2)
+        playMelodyNote(*[f,sixteenth/2,sixteenth/2] if count < 1 else [f,sixteenth/2,sixteenth/2, tonicPin] )
        
         # Bb
-        playMelodyNote(f*(4/3), eighth*.5, eighth/2)
+        playMelodyNote(*[f*(4/3), eighth*.5, eighth/2] if count < 1 else [f*(4/3), eighth*.5, eighth/2, BbLED])
        
         # F
-        playMelodyNote(f,eighth/2,eighth/2)
+        playMelodyNote(*[f,eighth/2,eighth/2] if count < 1 else [f,eighth/2,eighth/2, tonicPin])
         
         # Eb
-        playMelodyNote(f*(8/9),eighth/2,eighth/2)
+        playMelodyNote(*[f*(8/9),eighth/2,eighth/2] if count < 1 else [f*(8/9),eighth/2,eighth/2, EbLED])
 
 def measure2():
         # F
-        playMelodyNote(f,quarter/2,quarter/2)
+        playMelodyNote(f,quarter/2,quarter/2, tonicPin)
 
         # C
-        playMelodyNote(f*(3/2),eighth+(sixteenth/2),sixteenth/2)
+        playMelodyNote(f*(3/2),eighth+(sixteenth/2),sixteenth/2, cLED)
        
         # F
-        playMelodyNote(f,eighth/2,eighth/2)
+        playMelodyNote(*[f,eighth/2,eighth/2] if count < 1 else [f, eighth/2,eighth/2, tonicPin])
 
         # F
-        playMelodyNote(f,sixteenth/2,sixteenth/2)
+        playMelodyNote(*[f,sixteenth/2,sixteenth/2] if count < 1 else [f,sixteenth/2,sixteenth/2, tonicPin])
        
-        # D
-        playMelodyNote(f*(8/5),eighth*.5,eighth*.5)
+        # Db
+        playMelodyNote(*[f*(8/5),eighth*.5,eighth*.5] if count < 1 else [f*(8/5),eighth*.5,eighth*.5, DbLED])
         
         # C
-        playMelodyNote(f*(3/2),eighth*.5,eighth*.5)
+        playMelodyNote(*[f*(3/2),eighth*.5,eighth*.5] if count < 1 else [f*(3/2),eighth*.5,eighth*.5, cLED])
         
         # Ab
-        playMelodyNote(f*(6/5), eighth*.5,eighth*.5)
+        playMelodyNote(*[f*(6/5), eighth*.5,eighth*.5] if count < 1 else [f*(6/5), eighth*.5,eighth*.5, AbLED])
 
 def measure3():
-       # F
-        buzz.start(50)
-        buzz.ChangeFrequency(f)
-        sleep(eighth/2)
-        buzz.stop()
-        sleep(eighth/2)
-        #buzz.start(50)
+        # F
+        playMelodyNote(f, eighth/2, eighth/2, tonicPin)
+        
         # C
-        buzz.ChangeFrequency(f*(3/2))
-        buzz.start(50)
-        sleep(eighth/2)
-        buzz.stop()
-        sleep(eighth/2)
+        playMelodyNote(f*(3/2), eighth/2, eighth/2, cLED)
+        
         # F
-        buzz.ChangeFrequency(f*2)
-        buzz.start(50)
-        sleep(eighth/2)
-        buzz.stop()
-        sleep(eighth/2)
+        playMelodyNote(f*2, eighth/2, eighth/2,octaveLED)
+       
         # F
-        buzz.ChangeFrequency(f)
-        buzz.start(50)
-        sleep(sixteenth/2)
-        buzz.stop()
-        sleep(sixteenth/2)
+        playMelodyNote(*[f, sixteenth/2, sixteenth/2] if count < 1 else [f, sixteenth/2, sixteenth/2, tonicPin])
+       
         # Eb
-        buzz.ChangeFrequency(f*(8/9))
-        buzz.start(50)
-        sleep(eighth/2)
-        buzz.stop()
-        sleep(eighth/2)
+        playMelodyNote(*[f*(8/9),eighth/2,eighth/2] if count < 1 else [f*(8/9),eighth/2,eighth/2, EbLED])
+        
         # Eb
-        buzz.ChangeFrequency(f*(8/9))
-        buzz.start(50)
-        sleep(sixteenth/2)
-        buzz.stop()
-        sleep(sixteenth/2)
+        playMelodyNote(*[f*(8/9), sixteenth/2, sixteenth/2] if count < 1 else [f*(8/9), sixteenth/2, sixteenth/2, EbLED])
+       
         # Middle C
-        buzz.ChangeFrequency(f*(2/3))
-        buzz.start(50)
-        sleep(eighth/2)
-        buzz.stop()
-        sleep(eighth/2)
+        playMelodyNote(*[f*(2/3), eighth/2, eighth/2] if count < 1 else [f*(2/3), eighth/2, eighth/2, cLED])
+        
         # G
-        buzz.ChangeFrequency(f*(9/8))
-        buzz.start(50)
-        sleep(eighth/2)
-        buzz.stop()
-        sleep(eighth/2)
+        playMelodyNote(*[f*(9/8), eighth/2, eighth/2] if count < 1 else [f*(9/8), eighth/2, eighth/2, gLED])
+        
         # F
-        buzz.ChangeFrequency(f)
-        buzz.start(50)
-        sleep(quarter/2)
-        buzz.stop()
-        sleep(quarter/2)
-        sleep(1)
+        playMelodyNote(*[f, quarter/2, quarter/2] if count < 1 else [f, quarter/2, quarter/2, tonicPin])
+     
+        sleep(.9)
         # F
-        buzz.ChangeFrequency(f*2)
-        buzz.start(50)
-        sleep(quarter/2)
-        buzz.stop()
-        sleep(quarter/2)
-        # F
-        buzz.ChangeFrequency(f*2)
-        buzz.start(50)
-        sleep(quarter/2)
-        buzz.stop()
-        sleep(quarter/2)
+        playMelodyNote(f*2, quarter/2, quarter/2, tonicPin, octaveLED)
+       
+        # F 
+        playMelodyNote(f*2, quarter/2, quarter/2, tonicPin, octaveLED)
+        
 
 def playIntro():
     measure1()
     measure2()
     measure3()
+    global count
+    count +=1
     
