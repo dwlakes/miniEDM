@@ -125,6 +125,7 @@ def bassMeasure4():
         
 
 def playBassLine():
+        pass
         bassMeasure1()
         bassMeasure2()
         bassMeasure3()

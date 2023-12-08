@@ -127,6 +127,7 @@ def measure3():
         
 
 def playIntro():
+    pass
     measure1()
     measure2()
     measure3()

@@ -28,6 +28,7 @@ def playMelody():
        bass_line.start()
        crazyFrogMelody.playIntro()
        #GPIO.cleanup()
+       bzrpFmin.transition(buzz = GPIO.PWM(buzzPin, 349.23))
        bzrpFmin.rif(buzz = GPIO.PWM(buzzPin, 349.23))
        bzrp_bass_line = threading.Thread(target=playBzrpBassline)
        bzrp_bass_line.start()
