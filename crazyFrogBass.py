@@ -26,7 +26,7 @@ GPIO.setup(DbLED, GPIO.OUT)
 GPIO.setup(EbLED, GPIO.OUT)
 GPIO.setup(octaveLED, GPIO.OUT)
 #buzz = GPIO.PWM(buzzPin, 349.23)
-buzz2 = GPIO.PWM(buzzPin2, 87.32)
+#buzz2 = GPIO.PWM(buzzPin2, 87.32)
 
 f = 349.23
 f_low = 87.32
@@ -36,13 +36,14 @@ eighth = .25*.9
 sixteenth = .125*.9
 
 def playBassNote(freq, duration, rest, *LED):
-       buzz2.start(50)
-       buzz2.ChangeFrequency(freq)
-       GPIO.output(LED, 1)
-       sleep(duration)
-       buzz2.stop()
-       GPIO.output(LED, 0)
-       sleep(rest)
+        buzz2 = GPIO.PWM(buzzPin2, 87.32)
+        buzz2.start(50)
+        buzz2.ChangeFrequency(freq)
+        GPIO.output(LED, 1)
+        sleep(duration)
+        buzz2.stop()
+        GPIO.output(LED, 0)
+        sleep(rest)
 
 def bassMeasure1():
         # F

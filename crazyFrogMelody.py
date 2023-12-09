@@ -24,8 +24,6 @@ GPIO.setup(DbLED, GPIO.OUT)
 GPIO.setup(BbLED, GPIO.OUT)
 GPIO.setup(EbLED, GPIO.OUT)
 
-buzz = GPIO.PWM(buzzPin, 349.23)
-
 f = 349.23
 f_low = 87.32
 
@@ -36,6 +34,7 @@ sixteenth = .125*.9
 count = 0
 
 def playMelodyNote(freq, duration, rest, *LED):
+       buzz = GPIO.PWM(buzzPin, 349.23)
        #print("pin: ",pin)
        buzz.start(50)
        buzz.ChangeFrequency(freq)
@@ -123,7 +122,7 @@ def measure3():
         playMelodyNote(f*2, quarter/2, quarter/2, tonicPin, octaveLED)
        
         # F 
-        playMelodyNote(f*2, quarter/2, quarter/2, tonicPin, octaveLED)
+        playMelodyNote(*[f*2, quarter/2, quarter/2, tonicPin, octaveLED] if count < 1 else [f*2, quarter/2, 0, tonicPin, octaveLED])
         
 
 def playIntro():

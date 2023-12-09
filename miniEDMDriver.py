@@ -5,12 +5,13 @@ import crazyFrogMelody
 import crazyFrogBass
 import bzrpFmin
 import bzrpBass
+import lights
 
 buzzPin = 17
 buzzPin2 = 26
 GPIO.setmode(GPIO.BCM)
 #GPIO.setup(buzzPin, GPIO.OUT)
-GPIO.setup(buzzPin2, GPIO.OUT)
+#GPIO.setup(buzzPin2, GPIO.OUT)
 #buzz = GPIO.PWM(buzzPin, 349.23)
 #buzz2 = GPIO.PWM(buzzPin2, 87.32)
 
@@ -28,10 +29,15 @@ def playMelody():
        bass_line.start()
        crazyFrogMelody.playIntro()
        #GPIO.cleanup()
-       bzrpFmin.transition(buzz = GPIO.PWM(buzzPin, 349.23))
-       bzrpFmin.rif(buzz = GPIO.PWM(buzzPin, 349.23))
+       lights_thread = threading.Thread(target=lightsThread)
+       lights_thread.start()
+        # lights_thread.start()
+       bzrpFmin.transition()
+       bzrpFmin.rif()
        bzrp_bass_line = threading.Thread(target=playBzrpBassline)
        bzrp_bass_line.start()
+       lights_thread = threading.Thread(target=lights.pattern3)
+       lights_thread.start()
        bzrpFmin.chorus(buzz = GPIO.PWM(buzzPin, 349.23))
        print('\nadios')
 
@@ -40,15 +46,21 @@ def playBassLine():
 
 def playBzrpBassline():
     bzrpBass.playBassline()
+
+def lightsThread():
+    lights.startLights()
         
 
 
 try:
     while True:
         melody_thread = threading.Thread(target=playMelody)
-        #bass_line = threading.Thread(target=playBassLine)
+        bass_line = threading.Thread(target=playBassLine)
         melody_thread.start()
-        #bzrpFmin.rif()
+        # bzrpFmin.transition()
+        # lights_thread = threading.Thread(target=lightsThread)
+        # lights_thread.start()
+        # bzrpFmin.rif()
         #bass_line.start()
         #GPIO.cleanup()
         #print('\nadios')
