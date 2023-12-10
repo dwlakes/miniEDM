@@ -48,6 +48,7 @@ def changeLight(duration, light):
     pwm.start(50)
     pwm.ChangeFrequency(20) 
     sleep(duration)
+    GPIO.output(light, 0)
 
 def change2Lights(duration, light1, light2):
     pwm1 = GPIO.PWM(light1, 100)
@@ -58,6 +59,31 @@ def change2Lights(duration, light1, light2):
     pwm2.start(50)
     pwm2.ChangeFrequency(20) 
     sleep(duration)
+    GPIO.output(light1, 0)
+    GPIO.output(light2, 0)
+
+def change4Lights(duration, light1, light2, light3, light4):
+    pwm1 = GPIO.PWM(light1, 100)
+    pwm1.start(50)
+    pwm1.ChangeFrequency(20) 
+    
+    pwm2 = GPIO.PWM(light2, 100)
+    pwm2.start(50)
+    pwm2.ChangeFrequency(20) 
+
+    pwm3 = GPIO.PWM(light3, 100)
+    pwm3.start(50)
+    pwm3.ChangeFrequency(20) 
+
+    pwm4 = GPIO.PWM(light4, 100)
+    pwm4.start(50)
+    pwm4.ChangeFrequency(20) 
+    sleep(duration)
+    GPIO.output(light1, 0)
+    GPIO.output(light2, 0)
+    GPIO.output(light3, 0)
+    GPIO.output(light4, 0)
+
 
 
 def pattern1():
@@ -122,12 +148,49 @@ def pattern3():
     for light in reversed(row1lights):
         light2 = row2lights[7-row1lights.index(light)]
         change2Lights(.05, light, light2)
-    for light in reversed(row1lights):
-        light2 = row2lights[7-row1lights.index(light)]
-        change2Lights(.05, light, light2)
-    for light in reversed(row1lights):
-        light2 = row2lights[7-row1lights.index(light)]
-        change2Lights(.05, light, light2)
+    
+
+def pattern4():
+    for light in row1lights[4:8]:
+        light2 = row1lights[7-row1lights.index(light)]
+        light3 = row2lights[row1lights.index(light)]
+        light4 = row2lights[7-row1lights.index(light)]
+        change4Lights(.05, light, light2, light3, light4) 
+    for light in reversed(row1lights[4:8]):
+        light2 = row1lights[7-row1lights.index(light)]
+        light3 = row2lights[row1lights.index(light)]
+        light4 = row2lights[7-row1lights.index(light)]
+        change4Lights(.05, light, light2, light3, light4) 
+    for light in row1lights[4:8]:
+        light2 = row1lights[7-row1lights.index(light)]
+        light3 = row2lights[row1lights.index(light)]
+        light4 = row2lights[7-row1lights.index(light)]
+        change4Lights(.05, light, light2, light3, light4) 
+    for light in reversed(row1lights[4:8]):
+        light2 = row1lights[7-row1lights.index(light)]
+        light3 = row2lights[row1lights.index(light)]
+        light4 = row2lights[7-row1lights.index(light)]
+        change4Lights(.05, light, light2, light3, light4)
+    for light in row1lights[4:8]:
+        light2 = row1lights[7-row1lights.index(light)]
+        light3 = row2lights[row1lights.index(light)]
+        light4 = row2lights[7-row1lights.index(light)]
+        change4Lights(.05, light, light2, light3, light4) 
+    for light in reversed(row1lights[4:8]):
+        light2 = row1lights[7-row1lights.index(light)]
+        light3 = row2lights[row1lights.index(light)]
+        light4 = row2lights[7-row1lights.index(light)]
+        change4Lights(.05, light, light2, light3, light4) 
+    for light in row1lights[4:8]:
+        light2 = row1lights[7-row1lights.index(light)]
+        light3 = row2lights[row1lights.index(light)]
+        light4 = row2lights[7-row1lights.index(light)]
+        change4Lights(.05, light, light2, light3, light4) 
+    for light in reversed(row1lights[4:8]):
+        light2 = row1lights[7-row1lights.index(light)]
+        light3 = row2lights[row1lights.index(light)]
+        light4 = row2lights[7-row1lights.index(light)]
+        change4Lights(.05, light, light2, light3, light4)   
 
     
 

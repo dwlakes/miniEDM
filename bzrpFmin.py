@@ -157,121 +157,67 @@ def rif():
     # f
     playMelodyNote(f/2, eighth*.9, eighth*.1, DbLED )
 
-def chorus(buzz):
-     # D
-    buzz.start(50)
-    buzz.ChangeFrequency(f)
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
-    # D
-    buzz.start(50)
-    buzz.ChangeFrequency(f)
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
+def chorus():
+    # F
+    playMelodyNote(f, eighth*.9, eighth*.1)
+    
+    # F
+    playMelodyNote(f, eighth*.9, eighth*.1)
+   
+    # Eb
+    playMelodyNote(f*(8/9), eighth*.9, eighth*.1)
+
+    # Eb
+    playMelodyNote(f*(8/9), sixteenth*.9, 0)
+    
     # C
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(8/9))
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
+    playMelodyNote(f*(3/4), sixteenth*.9, sixteenth*.1)
+   
     # C
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(8/9))
-    sleep(sixteenth*.9)
-    # A
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(3/4))
-    sleep(sixteenth*.9)
-    buzz.stop()
-    sleep(sixteenth*.1)
-     # A
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(3/4))
-    sleep(sixteenth*.9)
-    buzz.stop()
-    sleep(sixteenth*.1)
-     # A
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(3/4))
-    sleep(sixteenth*.9)
-    buzz.stop()
-    sleep(sixteenth*.1)
-    # A (eight)
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(3/4))
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
-    # A (eight)
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(3/4))
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
-     # A
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(3/4))
-    sleep(sixteenth*.9)
-    buzz.stop()
-    sleep(sixteenth*.1)
-    # A (eight)
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(3/4))
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
-     # A
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(3/4))
-    sleep(sixteenth*.9)
-    buzz.stop()
-    sleep(sixteenth*.1)
-    # A (eight)
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(3/4))
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
-    # A (eight)
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(3/4))
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
-    # A
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(3/4))
-    sleep(sixteenth*.9)
-    buzz.stop()
-    sleep(sixteenth*.1)
-    # A (eight)
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(3/4))
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
-     # A
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(3/4))
-    sleep(sixteenth*.9)
-    buzz.stop()
-    sleep(sixteenth*.1)
-    # A (eight)
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(3/4))
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
+    playMelodyNote(f*(3/4), sixteenth*.9, sixteenth*.1)
+    
     # C
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(8/9))
-    sleep(eighth)
-    # A
-    buzz.start(50)
-    buzz.ChangeFrequency(f*(3/4))
-    sleep(eighth)
+    playMelodyNote(f*(3/4), sixteenth*.9, sixteenth*.1)
+    
+    # C
+    playMelodyNote(f*(3/4), eighth*.9, eighth*.1)
+    
+    # C
+    playMelodyNote(f*(3/4), eighth*.9, eighth*.1)
+    
+    # C
+    playMelodyNote(f*(3/4), sixteenth*.9, sixteenth*.1)
+
+    # C
+    playMelodyNote(f*(3/4), eighth*.9, eighth*.1)
+
+    # C
+    playMelodyNote(f*(3/4), sixteenth*.9, sixteenth*.1)
+    
+    # C
+    playMelodyNote(f*(3/4), eighth*.9, eighth*.1)
+
+    # C
+    playMelodyNote(f*(3/4), eighth*.9, eighth*.1)
+
+    # C
+    playMelodyNote(f*(3/4), sixteenth*.9, sixteenth*.1)
+    
+    # C
+    playMelodyNote(f*(3/4), eighth*.9, eighth*.1)
+     
+    # C
+    playMelodyNote(f*(3/4), sixteenth*.9, sixteenth*.1)
+    
+    # C
+    playMelodyNote(f*(3/4), eighth*.9, eighth*.1)
+    
+    # Eb
+    playMelodyNote(f*(8/9), eighth, 0)
+    
+    # C
+    playMelodyNote(f*(3/4), eighth, 0)
+   
 
 def bridge():
     buzz.stop()
