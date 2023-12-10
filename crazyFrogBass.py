@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 from time import sleep
 import threading
 import crazyFrogMelody
+from noteClass import Note
 
 buzzPin = 17
 buzzPin2 = 26
@@ -35,6 +36,38 @@ quarter = .5*.9
 eighth = .25*.9
 sixteenth = .125*.9
 
+notesMeasure1 = [Note(f_low, quarter*.5, quarter*.5,tonicLed),
+        Note(f_low*2, eighth+(sixteenth/2),sixteenth/2, octaveLED),
+        Note(f_low*(9/5),eighth/2,eighth/2, EbLED),
+        Note(f_low*(9/5),sixteenth/2,sixteenth/2, EbLED),
+        Note(f_low*(3/2),eighth/2,eighth/2, cLED),
+        Note(f_low*(3/2),eighth/2,eighth/2, cLED),
+        Note(f_low*(9/5),eighth/2,eighth/2, EbLED)]
+
+notesMeasure2 = [Note(f_low, quarter*.5, quarter*.5, tonicLed),
+        Note(f_low*2, quarter*.5, quarter*.5+sixteenth, octaveLED),
+        Note(f_low*(3/2),sixteenth/2,sixteenth/2, cLED),
+        Note(f_low*(3/2),eighth/2,eighth/2, cLED),
+        Note(f_low*(9/5),eighth/2,eighth/2, EbLED),
+        Note(f_low*2,eighth/2,eighth/2, octaveLED)       
+]
+
+notesMeasure3 = [Note(f_low*(5/6), quarter*.5, quarter*.5, DbLED),
+        Note(f_low*(5/6)*2, eighth+(sixteenth/2),sixteenth/2, DbLED),
+        Note(f_low*(9/5),eighth/2,eighth/2, EbLED),
+        Note(f_low*(9/5),sixteenth/2,sixteenth/2, EbLED),
+        Note(f_low*(3/2),eighth/2,eighth/2, cLED),
+        Note(f_low*(9/5),eighth/2,eighth/2, EbLED),
+        Note(f_low*(3/2),eighth/2,eighth/2, cLED)
+]
+
+notesMeasure4 = [Note(f_low*2,0,quarter+quarter+sixteenth, octaveLED),
+        Note(f_low*(9/5),sixteenth/2,sixteenth/2, EbLED),
+        Note(f_low*(3/2),eighth/2,eighth/2, cLED),
+        Note(f_low*(4/3),eighth/2,eighth/2, BbLED),
+        Note(f_low*(6/5),eighth/2,eighth/2, AbLED)        
+]
+
 def playBassNote(freq, duration, rest, *LED):
         buzz2 = GPIO.PWM(buzzPin2, 87.32)
         buzz2.start(50)
@@ -46,87 +79,23 @@ def playBassNote(freq, duration, rest, *LED):
         sleep(rest)
 
 def bassMeasure1():
-        # F
-        playBassNote(f_low, quarter*.5, quarter*.5,tonicLed)
-
-        # F
-        playBassNote(f_low*2, eighth+(sixteenth/2),sixteenth/2, octaveLED)
-
-        # Eb
-        playBassNote(f_low*(9/5),eighth/2,eighth/2, EbLED)
-        
-        # Eb
-        playBassNote(f_low*(9/5),sixteenth/2,sixteenth/2, EbLED)
-        
-        # C
-        playBassNote(f_low*(3/2),eighth/2,eighth/2, cLED)
-        
-        # C
-        playBassNote(f_low*(3/2),eighth/2,eighth/2, cLED)
-
-        # Eb
-        playBassNote(f_low*(9/5),eighth/2,eighth/2, EbLED)
+       for note in notesMeasure1:
+               playBassNote(note.freq, note.duration, note.rest, note.LED)
 
 def bassMeasure2():
-        # F
-        playBassNote(f_low, quarter*.5, quarter*.5, tonicLed)
-
-        # F + sixteenth rest
-        playBassNote(f_low*2, quarter*.5, quarter*.5+sixteenth, octaveLED)
-
-        # C
-        playBassNote(f_low*(3/2),sixteenth/2,sixteenth/2, cLED)
-        
-        # C
-        playBassNote(f_low*(3/2),eighth/2,eighth/2, cLED)
-
-        # Eb
-        playBassNote(f_low*(9/5),eighth/2,eighth/2, EbLED)
-
-        # F
-        playBassNote(f_low*2,eighth/2,eighth/2, octaveLED)
+        for note in notesMeasure2:
+               playBassNote(note.freq, note.duration, note.rest, note.LED)
 
 def bassMeasure3():
-        # Db
-        playBassNote(f_low*(5/6), quarter*.5, quarter*.5, DbLED)
-
-        # Db
-        playBassNote(f_low*(5/6)*2, eighth+(sixteenth/2),sixteenth/2, DbLED)
-
-        # Eb
-        playBassNote(f_low*(9/5),eighth/2,eighth/2, EbLED)
-        
-        # Eb
-        playBassNote(f_low*(9/5),sixteenth/2,sixteenth/2, EbLED)
-        
-        # C
-        playBassNote(f_low*(3/2),eighth/2,eighth/2, cLED)
-
-        # Eb
-        playBassNote(f_low*(9/5),eighth/2,eighth/2, EbLED)
-
-        # C
-        playBassNote(f_low*(3/2),eighth/2,eighth/2, cLED)
+       for note in notesMeasure3:
+               playBassNote(note.freq, note.duration, note.rest, note.LED)
 
 def bassMeasure4():
-        # F
-        playBassNote(f_low*2,0,quarter+quarter+sixteenth, octaveLED)
-
-        # Eb
-        playBassNote(f_low*(9/5),sixteenth/2,sixteenth/2, EbLED)
-
-        # C
-        playBassNote(f_low*(3/2),eighth/2,eighth/2, cLED)
-
-        # Bb
-        playBassNote(f_low*(4/3),eighth/2,eighth/2, BbLED)
-       
-        # Ab
-        playBassNote(f_low*(6/5),eighth/2,eighth/2, AbLED)
+       for note in notesMeasure4:
+               playBassNote(note.freq, note.duration, note.rest, note.LED)
         
 
 def playBassLine():
-        pass
         bassMeasure1()
         bassMeasure2()
         bassMeasure3()

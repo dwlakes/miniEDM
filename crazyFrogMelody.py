@@ -1,7 +1,8 @@
 import RPi.GPIO as GPIO
 from time import sleep
-import crazyFrogMelodyNotes
+import noteClass
 import threading
+from noteClass import Note
 
 buzzPin = 17
 tonicPin = 4
@@ -12,6 +13,13 @@ gLED = 27
 BbLED = 5
 DbLED = 13
 EbLED = 19
+
+f = 349.23
+f_low = 87.32
+
+quarter = .5*.9
+eighth = .25*.9
+sixteenth = .125*.9
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(buzzPin, GPIO.OUT)
@@ -25,12 +33,33 @@ GPIO.setup(DbLED, GPIO.OUT)
 GPIO.setup(BbLED, GPIO.OUT)
 GPIO.setup(EbLED, GPIO.OUT)
 
-f = 349.23
-f_low = 87.32
+notesMeasure1 = [Note(f,quarter/2,quarter/2, tonicPin),
+                Note(f*(6/5),eighth+(sixteenth/2),sixteenth/2,AbLED),
+                Note(f,eighth/2,eighth/2, tonicPin),
+                Note(f,sixteenth/2,sixteenth/2, tonicPin),
+                Note(f*(4/3), eighth*.5, eighth/2, BbLED),
+                Note(f,eighth/2,eighth/2, tonicPin),
+                Note(f*(8/9),eighth/2,eighth/2, EbLED)]
 
-quarter = .5*.9
-eighth = .25*.9
-sixteenth = .125*.9
+notesMeasure2 = [Note(f,quarter/2,quarter/2, tonicPin),
+                Note(f*(3/2),eighth+(sixteenth/2),sixteenth/2, cLED),
+                Note(f, eighth/2,eighth/2, tonicPin),
+                Note(f,sixteenth/2,sixteenth/2, tonicPin),
+                Note(f*(8/5),eighth*.5,eighth*.5, DbLED),
+                Note(f*(3/2),eighth*.5,eighth*.5, cLED),
+                Note(f*(6/5), eighth*.5,eighth*.5, AbLED)]
+
+notesMeasure3 = [Note(f, eighth/2, eighth/2, tonicPin),
+                Note(f*(3/2), eighth/2, eighth/2, cLED),
+                Note(f*2, eighth/2, eighth/2,octaveLED),
+                Note(f, sixteenth/2, sixteenth/2, tonicPin),
+                Note(f*(8/9),eighth/2,eighth/2, EbLED),
+                Note(f*(8/9), sixteenth/2, sixteenth/2, EbLED),
+                Note(f*(2/3), eighth/2, eighth/2, cLED),
+                Note(f*(9/8), eighth/2, eighth/2, gLED),
+                Note(f, quarter/2, quarter/2 + 0.9, tonicPin),
+                Note(f*2, quarter/2, quarter/2, octaveLED),
+                Note(f*2, quarter/2, quarter/2, octaveLED)]
 
 count = 0
 
@@ -48,64 +77,43 @@ def playMelodyNote(freq, duration, rest, *LED):
 def measure1():
         global count
         if count < 1 :
-                for note in crazyFrogMelodyNotes.notesMeasure1:
-                        if crazyFrogMelodyNotes.notesMeasure1.index(note) == 0 or crazyFrogMelodyNotes.notesMeasure1.index(note) == 1:
+                for note in notesMeasure1:
+                        if notesMeasure1.index(note) == 0 or notesMeasure1.index(note) == 1:
                                 playMelodyNote(note.freq, note.duration, note.rest, note.LED)
                         else:
                                 playMelodyNote(note.freq, note.duration, note.rest)
         else:
-                for note in crazyFrogMelodyNotes.notesMeasure1:
+                for note in notesMeasure1:
                         playMelodyNote(note.freq, note.duration, note.rest, note.LED)
 
 def measure2():
         if count < 1 :
-                for note in crazyFrogMelodyNotes.notesMeasure2:
-                        if crazyFrogMelodyNotes.notesMeasure2.index(note) == 0 or crazyFrogMelodyNotes.notesMeasure2.index(note) == 1:
+                for note in notesMeasure2:
+                        if notesMeasure2.index(note) == 0 or notesMeasure2.index(note) == 1:
                                 playMelodyNote(note.freq, note.duration, note.rest, note.LED)
                         else:
                                 playMelodyNote(note.freq, note.duration, note.rest)
         else:
-                for note in crazyFrogMelodyNotes.notesMeasure2:
+                for note in notesMeasure2:
                         playMelodyNote(note.freq, note.duration, note.rest, note.LED)
 
 def measure3():
-        # F
-        playMelodyNote(f, eighth/2, eighth/2, tonicPin)
-        
-        # C
-        playMelodyNote(f*(3/2), eighth/2, eighth/2, cLED)
-        
-        # F
-        playMelodyNote(f*2, eighth/2, eighth/2,octaveLED)
-       
-        # F
-        playMelodyNote(*[f, sixteenth/2, sixteenth/2] if count < 1 else [f, sixteenth/2, sixteenth/2, tonicPin])
-       
-        # Eb
-        playMelodyNote(*[f*(8/9),eighth/2,eighth/2] if count < 1 else [f*(8/9),eighth/2,eighth/2, EbLED])
-        
-        # Eb
-        playMelodyNote(*[f*(8/9), sixteenth/2, sixteenth/2] if count < 1 else [f*(8/9), sixteenth/2, sixteenth/2, EbLED])
-       
-        # Middle C
-        playMelodyNote(*[f*(2/3), eighth/2, eighth/2] if count < 1 else [f*(2/3), eighth/2, eighth/2, cLED])
-        
-        # G
-        playMelodyNote(*[f*(9/8), eighth/2, eighth/2] if count < 1 else [f*(9/8), eighth/2, eighth/2, gLED])
-        
-        # F
-        playMelodyNote(*[f, quarter/2, quarter/2] if count < 1 else [f, quarter/2, quarter/2, tonicPin])
-     
-        sleep(.9)
-        # F
-        playMelodyNote(f*2, quarter/2, quarter/2, tonicPin, octaveLED)
-       
-        # F 
-        playMelodyNote(*[f*2, quarter/2, quarter/2, tonicPin, octaveLED] if count < 1 else [f*2, quarter/2, 0, tonicPin, octaveLED])
-        
+        if count < 1 :
+                for note in notesMeasure3:
+                        if notesMeasure3.index(note) == 0 \
+                        or notesMeasure3.index(note) == 1 \
+                        or notesMeasure3.index(note) == 2 \
+                        or note == notesMeasure3[-1] \
+                        or note == notesMeasure3[-2]:
+                                playMelodyNote(note.freq, note.duration, note.rest, note.LED)
+                        else:
+                                playMelodyNote(note.freq, note.duration, note.rest)
+                
+        else:
+                for note in notesMeasure3:
+                        playMelodyNote(note.freq, note.duration, note.rest, note.LED)
 
 def playIntro():
-    pass
     measure1()
     measure2()
     measure3()
