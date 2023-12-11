@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 from time import sleep
+from noteClass import Note
 
 buzzPin = 17
 buzzPin2 = 26
@@ -15,7 +16,42 @@ quarter = .5*.9
 eighth = .25*.9
 sixteenth = .125*.9
 
-def playBassNote(freq, duration, rest):
+bassChorusNotes = [Note(f_low,eighth, 0),
+    Note(f_low*2, eighth, 0),
+    Note(f_low, eighth, 0),
+    Note(f_low*2, eighth, 0),
+    Note(f_low, eighth, 0),
+    Note(f_low*2, eighth, 0),
+    Note(f_low, eighth, 0),
+    Note(f_low*2, eighth, 0),
+    Note(f_low, eighth, 0),
+    Note(f_low*2, eighth, 0),
+    Note(f_low, eighth, 0),
+    Note(f_low*2, eighth, 0),
+    Note(f_low*(6/5), eighth, 0),
+    Note(f_low*(6/5)*2, eighth, 0),
+    Note(f_low*(6/5), eighth, 0),
+    Note(f_low*(6/5)*2, eighth, 0),
+    Note(f_low*(8/5), eighth, 0),
+    Note(f_low*(8/5)*2, eighth, 0),
+    Note(f_low*(8/5), eighth, 0),
+    Note(f_low*(8/5)*2, eighth, 0),
+    Note(f_low*(8/5), eighth, 0),
+    Note(f_low*(8/5)*2, eighth, 0),
+    Note(f_low*(8/5), eighth, 0),
+    Note(f_low*(8/5)*2, eighth, 0),
+    Note(f_low*(8/5), eighth, 0),
+    Note(f_low*(8/5)*2, eighth, 0),
+    Note(f_low*(8/5), eighth, 0),
+    Note(f_low*(8/5)*2, eighth, 0),
+    Note(f_low*(4/3), eighth, 0),
+    Note(f_low*(4/3)*2, eighth, 0),
+    Note(f_low*(4/3), eighth, 0),
+    Note(f_low*(4/3)*2, eighth, 0)
+    
+]
+
+def playBassNote(freq, duration, rest, *LED):
        buzz2 = GPIO.PWM(buzzPin2, 87.32)
        buzz2.start(50)
        buzz2.ChangeFrequency(freq)
@@ -23,58 +59,12 @@ def playBassNote(freq, duration, rest):
        buzz2.stop()
        sleep(rest)
 
-def measure1():
-        # F
-        playBassNote(f_low,eighth, 0)
+def chorus():
+    for note in bassChorusNotes:
+        playBassNote(note.freq, note.duration, note.rest, note.LED)
 
-        # F
-        playBassNote(f_low*2, eighth, 0)
-
-        # F
-        playBassNote(f_low, eighth, 0)
-
-        # F
-        playBassNote(f_low*2, eighth, 0)
-        
-        # F
-        playBassNote(f_low, eighth, 0)
-
-        # F
-        playBassNote(f_low*2, eighth, 0)
-
-        # F
-        playBassNote(f_low, eighth, 0)
-
-        # F
-        playBassNote(f_low*2, eighth, 0)
-
-def measure2():
-    # F
-    playBassNote(f_low, eighth, 0)
-
-    # F
-    playBassNote(f_low*2, eighth, 0)
-
-     # F
-    playBassNote(f_low, eighth, 0)
-
-    # F
-    playBassNote(f_low*2, eighth, 0)
-
-    # Ab
-    playBassNote(f_low*(6/5), eighth, 0)
-
-    # Ab
-    playBassNote(f_low*(6/5)*2, eighth, 0)
-
-    # Ab
-    playBassNote(f_low*(6/5), eighth, 0)
-
-    # Ab
-    playBassNote(f_low*(6/5)*2, eighth, 0)
 
 def playBassline():
-    measure1()
-    measure2()
+    chorus()
 
       

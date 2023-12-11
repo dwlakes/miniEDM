@@ -24,16 +24,16 @@ sixteenth = .125*.9
        
 
 def playMelody():
-    crazyFrogMelody.playIntro()
-    bass_line = threading.Thread(target=playBassLine)
-    bass_line.start()
-    crazyFrogMelody.playIntro()
-    #GPIO.cleanup()
-    lights_thread = threading.Thread(target=lightsThread)
-    lights_thread.start()
-        # lights_thread.start()
-    bzrpFmin.transition()
-    bzrpFmin.rif()
+    # crazyFrogMelody.playIntro()
+    # bass_line = threading.Thread(target=playBassLine)
+    # bass_line.start()
+    # crazyFrogMelody.playIntro()
+    # #GPIO.cleanup()
+    # lights_thread = threading.Thread(target=lightsThread)
+    # lights_thread.start()
+    #     # lights_thread.start()
+    # bzrpFmin.transition()
+    # bzrpFmin.rif()
     bzrp_bass_line = threading.Thread(target=playBzrpBassline)
     bzrp_bass_line.start()
     lights_thread = threading.Thread(target=lights.pattern3)
@@ -41,6 +41,7 @@ def playMelody():
     bzrpFmin.chorus()
     lights_thread = threading.Thread(target=lights.pattern4)
     lights_thread.start()
+    bzrpFmin.bridge()
     print('\nadios')
 
 def playBassLine():

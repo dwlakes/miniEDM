@@ -68,6 +68,7 @@ def playMelodyNote(freq, duration, rest, *LED):
        #print("pin: ",pin)
        buzz.start(50)
        buzz.ChangeFrequency(freq)
+       print("led: ", LED)
        GPIO.output(LED, 1)
        sleep(duration)
        buzz.stop()

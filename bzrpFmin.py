@@ -1,5 +1,9 @@
 import RPi.GPIO as GPIO
 from time import sleep
+from noteClass import Note
+# import miniEDMDriver
+import threading
+import lights
 
 buzzPin = 17
 tonicPin = 4
@@ -33,16 +37,93 @@ quarter = .5*.9
 eighth = .25*.9
 sixteenth = .125*.9
 
+rifNotes = [Note(f, sixteenth, 0, DbLED), 
+    Note(f*(6/5), sixteenth*.9, sixteenth*.1, octaveLED),
+    Note(f*(6/5), eighth, 0, octaveLED),
+    Note(f*(9/8), eighth*.9, eighth*.1, EbLED),
+    Note(f*(9/8), sixteenth, 0, EbLED),
+    Note(f, sixteenth, sixteenth, DbLED),
+    Note(f, sixteenth/2, sixteenth/2, DbLED),
+    Note(f, eighth, 0, DbLED),
+    Note(f*(3/4), eighth*.9, eighth*.1, AbLED),
+    Note(f*(3/4), sixteenth, 0, AbLED),
+    Note(f*(2/3), sixteenth, sixteenth, gLED),
+    Note(f*(2/3), sixteenth/2, sixteenth/2, gLED),
+    Note(f*(2/3), eighth, 0, gLED),
+    Note(f*(3/5), eighth*.9, eighth*.1, tonicPin),
+    Note(f*(3/5), sixteenth, 0, tonicPin),
+    Note(f*(5/9), sixteenth, sixteenth, EbLED),
+    Note(f*(5/9), sixteenth, 0, EbLED),
+    Note(f*(3/5), eighth, 0, octaveLED),
+    Note(f/2, eighth*.9, eighth*.1, DbLED ),
+    Note(f/2, eighth*.9, eighth*.1, DbLED )]
+
+chorusNotes = [Note(f, eighth*.9, eighth*.1),
+    Note(f, eighth*.9, eighth*.1),
+    Note(f*(8/9), eighth*.9, eighth*.1),
+    Note(f*(8/9), sixteenth*.9, 0),
+    Note(f*(3/4), sixteenth*.9, sixteenth*.1),
+    Note(f*(3/4), sixteenth*.9, sixteenth*.1),
+    Note(f*(3/4), sixteenth*.9, sixteenth*.1),
+    Note(f*(3/4), eighth*.9, eighth*.1),
+    Note(f*(3/4), eighth*.9, eighth*.1),
+    Note(f*(3/4), sixteenth*.9, sixteenth*.1),
+    Note(f*(3/4), eighth*.9, eighth*.1),
+    Note(f*(3/4), sixteenth*.9, sixteenth*.1),
+    Note(f*(3/4), eighth*.9, eighth*.1),
+    Note(f*(3/4), eighth*.9, eighth*.1),
+    Note(f*(3/4), sixteenth*.9, sixteenth*.1),
+    Note(f*(3/4), eighth*.9, eighth*.1),
+    Note(f*(3/4), sixteenth*.9, sixteenth*.1),
+    Note(f*(3/4), eighth*.9, eighth*.1),
+    Note(f*(8/9), eighth, 0),
+    Note(f*(3/4), eighth, 0)]
+
+bridgeNotes = [Note(f*(3/4), eighth*.9, eighth*.1, cLED),
+    Note(f*(3/4), eighth*.9, eighth*.1, cLED),
+    Note(f*(8/9), eighth, 0, EbLED),
+    Note(f*(4/5), eighth, 0, DbLED),
+    Note(f*(3/4), eighth, 0, cLED),
+    Note(f*(4/5), eighth, 0, DbLED),
+    Note(f*(3/4), eighth, 0, cLED),
+    Note(f*(4/5), eighth, 0, DbLED),
+    Note(f*(3/4), eighth, 0, cLED),
+    Note(f*(4/5), eighth, 0, DbLED),
+    Note(f*(3/4), eighth, 0, cLED),
+    Note(f*(4/5), eighth, 0, DbLED),
+    Note(f*(8/9), eighth, 0, EbLED),
+    Note(f*(4/5), eighth, quarter, DbLED),
+    Note(f, eighth*.9, eighth*.1, BbLED),
+    Note(f, eighth*.9, eighth*.1, BbLED),
+    Note(f, eighth*.9, eighth*.1, BbLED),
+    Note(f*(8/9), eighth*.9, eighth*.1, EbLED),
+    Note(f*(8/9), eighth*.9, eighth*.1, EbLED),
+    Note(f*(4/5), eighth, 0, DbLED),
+    Note(f*(3/4), eighth, 0, cLED),
+    Note(f*(4/5), eighth, 0, DbLED),
+    Note(f*(3/4), eighth, 0, cLED),
+    Note(f*(4/5), eighth, 0, DbLED),
+    Note(f*(3/4), eighth, 0, cLED),
+    Note(f*(4/5), eighth, 0, DbLED),
+    Note(f*(4/5), eighth, eighth, DbLED),
+    Note(f*(8/9), eighth, 0, EbLED),
+    Note(f*(8/9), eighth, 0, EbLED)]
+
 def playMelodyNote(freq, duration, rest, *LED):
-       #print("pin: ",pin)
-       buzz = GPIO.PWM(buzzPin, 349.23)
-       buzz.start(50)
-       buzz.ChangeFrequency(freq)
-       GPIO.output(LED, 1)
-       sleep(duration)
-       buzz.stop()
-       GPIO.output(LED, 0)
-       sleep(rest)
+    #print("pin: ",pin)
+    buzz = GPIO.PWM(buzzPin, 349.23)
+    buzz.start(50)
+    buzz.ChangeFrequency(freq)
+    print("led: ", LED)
+    for pin in LED:
+        if pin is not None:
+            GPIO.output(LED, 1)
+    sleep(duration)
+    buzz.stop()
+    for pin in LED:
+        if pin is not None:
+            GPIO.output(LED, 0)
+    sleep(rest)
 
 def intro():
         # F
@@ -97,263 +178,24 @@ def transition():
 
 
 def rif():
-    # F
-    playMelodyNote(f, sixteenth, 0, DbLED)
-    
-    # Ab
-    playMelodyNote(f*(6/5), sixteenth*.9, sixteenth*.1, octaveLED)
-    
-    # Ab
-    playMelodyNote(f*(6/5), eighth, 0, octaveLED)
-    
-    # G
-    playMelodyNote(f*(9/8), eighth*.9, eighth*.1, EbLED)
-    
-    # G
-    playMelodyNote(f*(9/8), sixteenth, 0, EbLED)
-    
-    # F
-    playMelodyNote(f, sixteenth, sixteenth, DbLED)
-
-    # F
-    playMelodyNote(f, sixteenth/2, sixteenth/2, DbLED)
-    
-    # F
-    playMelodyNote(f, eighth, 0, DbLED)
-
-    # C
-    playMelodyNote(f*(3/4), eighth*.9, eighth*.1, AbLED)
-    
-    # C
-    playMelodyNote(f*(3/4), sixteenth, 0, AbLED)
-    
-    # Bb
-    playMelodyNote(f*(2/3), sixteenth, sixteenth, gLED)
-    
-    # Bb
-    playMelodyNote(f*(2/3), sixteenth/2, sixteenth/2, gLED)
-    
-    # Bb
-    playMelodyNote(f*(2/3), eighth, 0, gLED)
-    
-    # Ab
-    playMelodyNote(f*(3/5), eighth*.9, eighth*.1, tonicPin)
-  
-    # Ab
-    playMelodyNote(f*(3/5), sixteenth, 0, tonicPin)
-    
-    # G
-    playMelodyNote(f*(5/9), sixteenth, sixteenth, EbLED)
-    
-    # G
-    playMelodyNote(f*(5/9), sixteenth, 0, EbLED)
-   
-    # Ab
-    playMelodyNote(f*(3/5), eighth, 0, octaveLED)
-    
-    # f
-    playMelodyNote(f/2, eighth*.9, eighth*.1, DbLED )
-   
-    # f
-    playMelodyNote(f/2, eighth*.9, eighth*.1, DbLED )
+    for note in rifNotes:
+        playMelodyNote(note.freq, note.duration, note.rest, note.LED)
 
 def chorus():
-    # F
-    playMelodyNote(f, eighth*.9, eighth*.1)
+    for note in chorusNotes:
+        playMelodyNote(note.freq, note.duration, note.rest, note.LED)
     
-    # F
-    playMelodyNote(f, eighth*.9, eighth*.1)
-   
-    # Eb
-    playMelodyNote(f*(8/9), eighth*.9, eighth*.1)
-
-    # Eb
-    playMelodyNote(f*(8/9), sixteenth*.9, 0)
+    lights_thread = threading.Thread(target=lights.pattern4)
+    lights_thread.start()
     
-    # C
-    playMelodyNote(f*(3/4), sixteenth*.9, sixteenth*.1)
-   
-    # C
-    playMelodyNote(f*(3/4), sixteenth*.9, sixteenth*.1)
-    
-    # C
-    playMelodyNote(f*(3/4), sixteenth*.9, sixteenth*.1)
-    
-    # C
-    playMelodyNote(f*(3/4), eighth*.9, eighth*.1)
-    
-    # C
-    playMelodyNote(f*(3/4), eighth*.9, eighth*.1)
-    
-    # C
-    playMelodyNote(f*(3/4), sixteenth*.9, sixteenth*.1)
-
-    # C
-    playMelodyNote(f*(3/4), eighth*.9, eighth*.1)
-
-    # C
-    playMelodyNote(f*(3/4), sixteenth*.9, sixteenth*.1)
-    
-    # C
-    playMelodyNote(f*(3/4), eighth*.9, eighth*.1)
-
-    # C
-    playMelodyNote(f*(3/4), eighth*.9, eighth*.1)
-
-    # C
-    playMelodyNote(f*(3/4), sixteenth*.9, sixteenth*.1)
-    
-    # C
-    playMelodyNote(f*(3/4), eighth*.9, eighth*.1)
-     
-    # C
-    playMelodyNote(f*(3/4), sixteenth*.9, sixteenth*.1)
-    
-    # C
-    playMelodyNote(f*(3/4), eighth*.9, eighth*.1)
-    
-    # Eb
-    playMelodyNote(f*(8/9), eighth, 0)
-    
-    # C
-    playMelodyNote(f*(3/4), eighth, 0)
-   
+    for note in chorusNotes:
+        playMelodyNote(note.freq, note.duration, note.rest, note.LED)
 
 def bridge():
-    buzz.stop()
     sleep(quarter)
-    # A
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(3/4))
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
-    # A
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(3/4))
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
-    # C
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(8/9))
-    sleep(eighth)
-    # Bb
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(4/5))
-    sleep(eighth)
-    # A
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(3/4))
-    sleep(eighth)
-    # Bb
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(4/5))
-    sleep(eighth)
-     # A
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(3/4))
-    sleep(eighth)
-    # Bb
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(4/5))
-    sleep(eighth)
-     # A
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(3/4))
-    sleep(eighth)
-    # Bb
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(4/5))
-    sleep(eighth)
-    # A
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(3/4))
-    sleep(eighth)
-    # Bb
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(4/5))
-    sleep(eighth)
-    # C
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(8/9))
-    sleep(eighth)
-    # Bb
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(4/5))
-    sleep(eighth)
-    # Rest
-    buzz.stop()
-    sleep(quarter)
-     # D
-    buzz.start(50)
-    buzz.ChangeFrequency(d)
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
-     # D
-    buzz.start(50)
-    buzz.ChangeFrequency(d)
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
-     # D
-    buzz.start(50)
-    buzz.ChangeFrequency(d)
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
-    # C
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(8/9))
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
-     # C
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(8/9))
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
-     # A
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(3/4))
-    sleep(eighth)
-    # Bb
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(4/5))
-    sleep(eighth)
-     # A
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(3/4))
-    sleep(eighth)
-    # Bb
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(4/5))
-    sleep(eighth)
-     # A
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(3/4))
-    sleep(eighth)
-    # Bb
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(4/5))
-    sleep(eighth)
-    # Rest
-    buzz.stop()
-    sleep(eighth)
-    # C
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(8/9))
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
-     # C
-    buzz.start(50)
-    buzz.ChangeFrequency(d*(8/9))
-    sleep(eighth*.9)
-    buzz.stop()
-    sleep(eighth*.1)
+    for note in bridgeNotes:
+        playMelodyNote(note.freq, note.duration, note.rest, note.LED)
+
 
 
 
