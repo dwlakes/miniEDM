@@ -114,7 +114,6 @@ def playMelodyNote(freq, duration, rest, *LED):
     buzz = GPIO.PWM(buzzPin, 349.23)
     buzz.start(50)
     buzz.ChangeFrequency(freq)
-    print("led: ", LED)
     for pin in LED:
         if pin is not None:
             GPIO.output(LED, 1)
@@ -128,40 +127,39 @@ def playMelodyNote(freq, duration, rest, *LED):
 def intro():
         # F
         buzz.start(50)
-        buzz.ChangeFrequency(d)
+        Note(f,quarter,0, tonicPin)
         sleep(quarter)
         # E
         buzz.start(50)
-        buzz.ChangeFrequency(d*(9/8))
+        Note(f*(9/8), quarter, 0, gLED)
         sleep(quarter)
         # F
         buzz.start(50)
-        buzz.ChangeFrequency(d*(6/5))
+        Note(f*(6/5), eighth, 0, AbLED)
         sleep(eighth)
         # C
         buzz.start(50)
-        buzz.ChangeFrequency(d*(9/5))
+        Note(f*(9/5), quarter, 0, EbLED)
         sleep(quarter)
         # A
         buzz.start(50)
-        buzz.ChangeFrequency(d*(3/2))
-        sleep(quarter+quarter)
+        Note(f*(3/2), quarter+quarter, 0, cLED)
+        sleep(quarter+quarter, 0, )
         # Bb
         buzz.start(50)
-        buzz.ChangeFrequency(d*(8/5))
+        buzz.ChangeFrequency(f*(8/5))
         sleep(eighth)
         # A
         buzz.start(50)
-        buzz.ChangeFrequency(d*(3/2))
+        buzz.ChangeFrequency(f*(3/2))
         sleep(quarter+eighth)
         # G
         buzz.start(50)
-        buzz.ChangeFrequency(d*(4/3))
+        buzz.ChangeFrequency(f*(4/3))
         sleep(eighth)
 
 def transition():
     pwm = GPIO.PWM(lightsQueue.pop(0), 100)
-    print("lights q:", lightsQueue)
     pwm.start(50)
     pwm.ChangeFrequency(20)
     

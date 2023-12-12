@@ -39,9 +39,8 @@ def playMelody():
     lights_thread = threading.Thread(target=lights.pattern3)
     lights_thread.start()
     bzrpFmin.chorus()
-    lights_thread = threading.Thread(target=lights.pattern4)
-    lights_thread.start()
     bzrpFmin.bridge()
+    crazyFrogMelody.playIntro()
     print('\nadios')
 
 def playBassLine():
