@@ -5,6 +5,7 @@ import crazyFrogMelody
 import crazyFrogBass
 import bzrpFmin
 import bzrpBass
+import shakiraXcrazyFrog
 import lights
 
 buzzPin = 17
@@ -24,7 +25,12 @@ sixteenth = .125*.9
        
 
 def playMelody():
-    # crazyFrogMelody.playIntro()
+    
+    crazyFrogMelody.playIntro()
+    bzrp_thread = threading.Thread(target=bzrpFmin.intro)
+    bzrp_thread.start()
+    
+    
     # bass_line = threading.Thread(target=playBassLine)
     # bass_line.start()
     # crazyFrogMelody.playIntro()
@@ -32,15 +38,16 @@ def playMelody():
     # lights_thread = threading.Thread(target=lightsThread)
     # lights_thread.start()
     #     # lights_thread.start()
-    # bzrpFmin.transition()
     # bzrpFmin.rif()
-    bzrp_bass_line = threading.Thread(target=playBzrpBassline)
-    bzrp_bass_line.start()
-    lights_thread = threading.Thread(target=lights.pattern3)
-    lights_thread.start()
-    bzrpFmin.chorus()
-    bzrpFmin.bridge()
-    crazyFrogMelody.playIntro()
+    # bzrp_bass_line = threading.Thread(target=playBzrpBassline)
+    # bzrp_bass_line.start()
+    # lights_thread = threading.Thread(target=lights.pattern3)
+    # lights_thread.start()
+    # bzrpFmin.chorus()
+    # bzrpFmin.bridge()
+    # crazyFrogMelody.playIntro()
+    # crazyFrogMelody.playIntro()
+
     print('\nadios')
 
 def playBassLine():

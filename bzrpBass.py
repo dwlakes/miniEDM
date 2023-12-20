@@ -60,7 +60,7 @@ def playBassNote(freq, duration, rest, *LED):
        sleep(rest)
 
 def chorus():
-    for note in bassChorusNotes[0:int(len(bassChorusNotes)/2)]:
+    for note in bassChorusNotes:
         playBassNote(note.freq, note.duration, note.rest, note.LED)
 
 

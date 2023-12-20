@@ -109,6 +109,15 @@ bridgeNotes = [Note(f*(3/4), eighth*.9, eighth*.1, cLED),
     Note(f*(8/9), eighth, 0, EbLED),
     Note(f*(8/9), eighth, 0, EbLED)]
 
+introNotes = [Note(f,quarter,0, tonicPin),
+    Note(f*(9/8), quarter, 0, gLED),
+    Note(f*(6/5), eighth, 0, AbLED),
+    Note(f*(9/5), quarter, 0, EbLED),
+    Note(f*(3/2), quarter+quarter, 0, cLED),
+    Note(f*(8/5), eighth, 0, BbLED),
+    Note(f*(3/2), quarter+eighth,0, cLED),
+    Note(f*(4/3), eighth, 0, BbLED)]
+
 def playMelodyNote(freq, duration, rest, *LED):
     #print("pin: ",pin)
     buzz = GPIO.PWM(buzzPin, 349.23)
@@ -125,38 +134,9 @@ def playMelodyNote(freq, duration, rest, *LED):
     sleep(rest)
 
 def intro():
-        # F
-        buzz.start(50)
-        Note(f,quarter,0, tonicPin)
-        sleep(quarter)
-        # E
-        buzz.start(50)
-        Note(f*(9/8), quarter, 0, gLED)
-        sleep(quarter)
-        # F
-        buzz.start(50)
-        Note(f*(6/5), eighth, 0, AbLED)
-        sleep(eighth)
-        # C
-        buzz.start(50)
-        Note(f*(9/5), quarter, 0, EbLED)
-        sleep(quarter)
-        # A
-        buzz.start(50)
-        Note(f*(3/2), quarter+quarter, 0, cLED)
-        sleep(quarter+quarter, 0, )
-        # Bb
-        buzz.start(50)
-        buzz.ChangeFrequency(f*(8/5))
-        sleep(eighth)
-        # A
-        buzz.start(50)
-        buzz.ChangeFrequency(f*(3/2))
-        sleep(quarter+eighth)
-        # G
-        buzz.start(50)
-        buzz.ChangeFrequency(f*(4/3))
-        sleep(eighth)
+    for note in introNotes:
+        playMelodyNote(note.freq, note.duration, note.rest, note.LED)
+       
 
 def transition():
     pwm = GPIO.PWM(lightsQueue.pop(0), 100)
