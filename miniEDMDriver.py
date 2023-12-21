@@ -1,3 +1,10 @@
+# TODO: "Harmony on the same buzzer doesn't seem possible. 
+# Want to try crazy frog bridge into shakira rif or sorry baby. 
+# Having trouble with jarring transitions"
+'''Fix corrupt object: find .git/objects/ -size 0 -exec rm -f {} \;
+# git fetch origin'''
+
+
 import RPi.GPIO as GPIO
 from time import sleep
 import threading
