@@ -42,7 +42,11 @@ notesMeasure1 = [Note(f,quarter/2,quarter/2, tonicPin),
                 Note(f*(9/8), quarter, 0, gLED),
                 Note(f*(6/5), eighth, 0, AbLED),
                 Note(f*(9/5), quarter, 0, EbLED),
-                Note(f*(3/2), quarter+quarter, 0, cLED)]
+                Note(f*(3/2), quarter, quarter, cLED),
+                Note(f*(3/2), eighth/2, eighth/2, cLED),
+                Note(f*(3/2), eighth, 0, cLED),
+                Note(f*(4/3), eighth, 0, BbLED),
+                Note(f*(6/2), eighth, 0, AbLED)]
 
 notesMeasure2 = [Note(f,quarter/2,quarter/2, tonicPin),
                 Note(f*(3/2),eighth+(sixteenth/2),sixteenth/2, cLED),
@@ -56,6 +60,8 @@ notesMeasure2 = [Note(f,quarter/2,quarter/2, tonicPin),
                 Note(f*(6/5), eighth, 0, AbLED),
                 Note(f*2, quarter, 0, octaveLED),
                 Note(f*(9/5), quarter+quarter, 0, EbLED)]
+
+
 
 
 def playMelodyNote(freq, duration, rest, *LED):

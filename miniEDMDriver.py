@@ -26,18 +26,28 @@ sixteenth = .125*.9
 
 def playMelody():
     
+
+    ### Idea:
+    # bzrpFmin.introPt1()
+    # crazyFrogMelody.measure1()
+    # bzrpFmin.introPt2()
+    # crazyFrogMelody.measure2()
+    #crazyFrogMelody.measure3()
+
+    # bzrp_thread = threading.Thread(target=bzrpFmin.intro)
+    # #bzrp_thread.start()
+    
+    #bzrpFmin.sorryBaby()
     crazyFrogMelody.playIntro()
-    bzrp_thread = threading.Thread(target=bzrpFmin.intro)
-    bzrp_thread.start()
-    
-    
-    # bass_line = threading.Thread(target=playBassLine)
-    # bass_line.start()
-    # crazyFrogMelody.playIntro()
-    # #GPIO.cleanup()
-    # lights_thread = threading.Thread(target=lightsThread)
-    # lights_thread.start()
-    #     # lights_thread.start()
+    bass_line = threading.Thread(target=playBassLine)
+    bass_line.start()
+    crazyFrogMelody.playIntro()
+    #bzrpFmin.sorryBaby()
+    #GPIO.cleanup()
+    lights_thread = threading.Thread(target=lightsThread)
+    lights_thread.start()
+    #crazyFrogMelody.measure1()
+    #     #lights_thread.start()
     # bzrpFmin.rif()
     # bzrp_bass_line = threading.Thread(target=playBzrpBassline)
     # bzrp_bass_line.start()
@@ -72,7 +82,7 @@ try:
         # bzrpFmin.rif()
         #bass_line.start()
         #GPIO.cleanup()
-        #print('\nadios')
+        print('\nadios')
         exit()
         
 

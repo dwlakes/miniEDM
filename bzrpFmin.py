@@ -109,14 +109,33 @@ bridgeNotes = [Note(f*(3/4), eighth*.9, eighth*.1, cLED),
     Note(f*(8/9), eighth, 0, EbLED),
     Note(f*(8/9), eighth, 0, EbLED)]
 
-introNotes = [Note(f,quarter,0, tonicPin),
-    Note(f*(9/8), quarter, 0, gLED),
-    Note(f*(6/5), eighth, 0, AbLED),
-    Note(f*(9/5), quarter, 0, EbLED),
-    Note(f*(3/2), quarter+quarter, 0, cLED),
-    Note(f*(8/5), eighth, 0, BbLED),
-    Note(f*(3/2), quarter+eighth,0, cLED),
-    Note(f*(4/3), eighth, 0, BbLED)]
+introNotesPt1 = [Note(f,quarter,0, tonicPin),
+                Note(f*(9/8), quarter, 0, gLED),
+                Note(f*(6/5), eighth, 0, AbLED),
+                Note(f*(9/5), quarter, 0, EbLED),
+                Note(f*(3/2), quarter, quarter, cLED),
+                Note(f*(3/2), eighth/2, eighth/2, cLED),
+                Note(f*(3/2), eighth, 0, cLED),
+                Note(f*(4/3), eighth, 0, BbLED),
+                Note(f*(6/5), eighth, 0, AbLED),
+                Note(f*(9/8), eighth, 0, gLED)]
+
+introNotesPt2 = [Note(f,quarter,0, tonicPin),
+                Note(f*(9/8), quarter, 0, gLED),
+                Note(f*(6/5), eighth, 0, AbLED),
+                Note(f*2, quarter, 0, octaveLED),
+                Note(f*(9/5), quarter+quarter, 0, EbLED),
+                Note(f*(8/5), quarter, 0, DbLED),
+                Note(f*(3/2), quarter, eighth, cLED)]
+
+sorryBabyNotes = [Note(f*(6/5), eighth, 0, AbLED),
+                    Note(f*(9/8), eighth, quarter, gLED),
+                    Note(f, eighth, 0, tonicPin),
+                    Note(f*(8/9), eighth, quarter, EbLED),
+                    Note(f*(4/5), eighth, 0, DbLED),
+                    Note(f*(3/4), eighth, quarter, cLED),
+                    Note(f*(2/3), eighth, 0, BbLED),
+                    Note(f*(3/4), eighth, quarter, cLED)]
 
 def playMelodyNote(freq, duration, rest, *LED):
     #print("pin: ",pin)
@@ -133,9 +152,18 @@ def playMelodyNote(freq, duration, rest, *LED):
             GPIO.output(LED, 0)
     sleep(rest)
 
-def intro():
-    for note in introNotes:
+def introPt1():
+    for note in introNotesPt1:
         playMelodyNote(note.freq, note.duration, note.rest, note.LED)
+
+def introPt2():
+    for note in introNotesPt2:
+        playMelodyNote(note.freq, note.duration, note.rest, note.LED)
+
+def sorryBaby():
+    for note in sorryBabyNotes:
+        playMelodyNote(note.freq, note.duration, note.rest, note.LED)
+
        
 
 def transition():
