@@ -58,9 +58,10 @@ notesMeasure3 = [Note(f, eighth/2, eighth/2, tonicPin),
                 Note(f*(8/9), sixteenth/2, sixteenth/2, EbLED),
                 Note(f*(2/3), eighth/2, eighth/2, cLED),
                 Note(f*(9/8), eighth/2, eighth/2, gLED),
-                Note(f, quarter/2, quarter/2 + 0.9, tonicPin),
-                Note(f*2, quarter/2, quarter/2, octaveLED),
-                Note(f*2, quarter/2, quarter/2, octaveLED)]
+                Note(f, quarter/2, quarter/2 + 0.9 + quarter +quarter, tonicPin),
+                #Note(f*2, quarter/2, quarter/2, octaveLED),
+                #Note(f*2, quarter/2, quarter/2, octaveLED)
+                ]
 
 bridgeNotesHigh = [Note(f*(3/2), eighth/2, eighth/2, cLED),
                 Note(f*(3/2), eighth/2, eighth/2, cLED),
@@ -88,25 +89,53 @@ bridgeNotesHigh = [Note(f*(3/2), eighth/2, eighth/2, cLED),
                 Note(f*(4/3), eighth/2, eighth/2, BbLED),
                 Note(f*(4/3), sixteenth, sixteenth, BbLED),
                 Note(f*(4/3), eighth/2, eighth/2, BbLED),
-                Note(f*(4/3), sixteenth, 0, BbLED)]
+                Note(f*(4/3), sixteenth, 0, BbLED),
+
+                Note(f*(4/3), eighth/2, eighth/2, BbLED),
+                Note(f*(3/2), eighth/2, eighth/2, cLED),
+                Note(f*(3/2), eighth/2, eighth/2, cLED),
+                Note(f*(3/2), eighth/2, eighth/2, cLED),
+                Note(f*(4/3), sixteenth, 0, BbLED),
+                Note(f*(3/2), eighth/2, eighth/2, cLED),
+                Note(f*(3/2), sixteenth, sixteenth, cLED),
+                Note(f*(3/2), eighth/2, eighth/2+sixteenth, cLED),]
 
 bridgeNotesLow = [Note(f, eighth/2, eighth/2, tonicPin),
                 Note(f, eighth/2, eighth/2, tonicPin),
-                Note(f, sixteenth/2, sixteenth/2, tonicPin),
-                Note(f*(9/8), sixteenth/2, sixteenth/2+sixteenth, gLED),
+                Note(f, sixteenth, 0, tonicPin),
+                Note(f*(9/8), sixteenth, sixteenth, gLED),
                 Note(f*(9/8), eighth/2, eighth/2, gLED),
-                Note(f*(9/8), sixteenth/2, sixteenth/2, gLED),
+                Note(f*(9/8), sixteenth, 0, gLED),
                 Note(f, eighth/2, eighth/2, tonicPin),
-                Note(f, eighth/2, eighth/2+eighth, tonicPin),
+                Note(f, eighth/2, eighth/2, tonicPin),
                 
                 Note(f, eighth/2, eighth/2, tonicPin),
                 Note(f, eighth/2, eighth/2, tonicPin),
-                Note(f, sixteenth/2, sixteenth/2, tonicPin),
-                Note(f*(9/8), sixteenth/2, sixteenth/2+sixteenth, gLED),
-                Note(f*(9/8), sixteenth/2, sixteenth/2, gLED),
-                Note(f, eighth/2, eighth/2, gLED),
                 Note(f, eighth/2, eighth/2, tonicPin),
-                Note(f, quarter/2, quarter+eighth, tonicPin),  ]
+                Note(f*(9/8), sixteenth, 0, gLED),
+                Note(f*(9/8), sixteenth, sixteenth, gLED),
+                Note(f*(9/8), sixteenth, 0, gLED),
+                Note(f, eighth/2, eighth/2, tonicPin),
+                Note(f, eighth/2, eighth/2, tonicPin),
+                Note(f, eighth/2, eighth/2 + eighth, tonicPin),
+                
+                Note(f, eighth/2, eighth/2, tonicPin),
+                Note(f, eighth/2, eighth/2, tonicPin),
+                Note(f, eighth/2, eighth/2, tonicPin),
+                Note(f, sixteenth, 0, tonicPin),
+                Note(f*(9/8), eighth/2, eighth/2, gLED),
+                Note(f*(9/8), sixteenth, sixteenth, gLED),
+                Note(f*(9/8), eighth/2, eighth/2, gLED),
+                Note(f*(9/8), sixteenth, 0, gLED),
+
+                Note(f*(4/3), eighth/2, eighth/2, BbLED),
+                Note(f*(5/4), eighth/2, eighth/2, AbLED),
+                Note(f*(5/4), eighth/2, eighth/2, AbLED),
+                Note(f*(5/4), eighth/2, eighth/2, AbLED),
+                Note(f*(9/8), sixteenth, 0, gLED),
+                Note(f*(5/4), eighth/2, eighth/2, AbLED),
+                Note(f*(5/4), sixteenth, sixteenth, AbLED),
+                Note(f*(5/4), eighth/2, eighth/2+sixteenth, AbLED) ]
 
 
 count = 0
@@ -180,12 +209,11 @@ def measure3():
                         playMelodyNote(note.freq, note.duration, note.rest, note.LED)
 
 def bridge():
-        sleep(eighth)
-        for note in bridgeNotesHigh:
-        #for noteHigh, noteLow in zip(bridgeNotesHigh, bridgeNotesLow):
-                playMelodyNote(note.freq, note.duration, note.rest, note.LED)
+        #for note in bridgeNotesHigh:
+        for noteHigh, noteLow in zip(bridgeNotesHigh, bridgeNotesLow):
+                #playMelodyNote(note.freq, note.duration, note.rest, note.LED)
 
-                #playBridgeNote(noteHigh.freq, noteLow.freq, noteHigh.duration, noteHigh.rest, noteHigh.LED, noteLow.LED)
+                playBridgeNote(noteHigh.freq, noteLow.freq, noteHigh.duration, noteHigh.rest, noteHigh.LED, noteLow.LED)
 
 def playIntro():
     measure1()

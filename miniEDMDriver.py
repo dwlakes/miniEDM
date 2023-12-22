@@ -34,20 +34,39 @@ sixteenth = .125*.9
 def playMelody():
     
 
-    ### Idea:
-    # bzrpFmin.introPt1()
-    # crazyFrogMelody.measure1()
-    # bzrpFmin.introPt2()
-    # crazyFrogMelody.measure2()
-    #crazyFrogMelody.measure3()
+    ## Idea:
+    
 
     # bzrp_thread = threading.Thread(target=bzrpFmin.intro)
     # #bzrp_thread.start()
     
     #bzrpFmin.sorryBaby()
-    #crazyFrogMelody.playIntro()
+
+    # bass_line = threading.Thread(target=playBassLine)
+    # bass_line.start()
+    crazyFrogMelody.playIntro()
+    bass_line = threading.Thread(target=playBassLine)
+    bass_line.start()
+    crazyFrogMelody.playIntro()
+    # bass_line.join()
+    #crazyFrogMelody.bridge()
     crazyFrogMelody.bridge()
-    # bzrpFmin.rif()
+    crazyFrogMelody.measure1()
+    bzrpFmin.introPt1()
+    bass_thread = threading.Thread(target=crazyFrogBass.bassMeasure1)
+    bass_thread.start()
+    crazyFrogMelody.measure1()
+    bzrpFmin.introPt2()
+    bass_thread = threading.Thread(target=crazyFrogBass.bassMeasure2)
+    bass_thread.start()
+    crazyFrogMelody.measure2()
+    bass_thread = threading.Thread(target=crazyFrogBass.bassMeasure3)
+    bass_thread.start()
+    crazyFrogMelody.measure3()
+    bass_thread.join()
+    crazyFrogBass.bassMeasure4()
+    bzrpFmin.transition()
+    bzrpFmin.rif()
     # bass_line = threading.Thread(target=playBassLine)
     # bass_line.start()
     # crazyFrogMelody.playIntro()
@@ -58,19 +77,26 @@ def playMelody():
     #crazyFrogMelody.measure1()
     #     #lights_thread.start()
     # bzrpFmin.rif()
-    # bzrp_bass_line = threading.Thread(target=playBzrpBassline)
-    # bzrp_bass_line.start()
-    # lights_thread = threading.Thread(target=lights.pattern3)
-    # lights_thread.start()
-    # bzrpFmin.chorus()
-    # bzrpFmin.bridge()
-    # crazyFrogMelody.playIntro()
+    bzrp_bass_line = threading.Thread(target=playBzrpBassline)
+    bzrp_bass_line.start()
+    lights_thread = threading.Thread(target=lights.pattern3)
+    lights_thread.start()
+    bzrpFmin.chorus()
+    bzrpFmin.bridge()
+    bass_line = threading.Thread(target=playBassLine)
+    bass_line.start()
+    crazyFrogMelody.playIntro()
+    bzrpFmin.introPt2()
+    bzrpFmin.sorryBaby()
     # crazyFrogMelody.playIntro()
 
     print('\nadios')
 
 def playBassLine():
     crazyFrogBass.playBassLine()
+
+def bassMeasure1():
+    crazyFrogBass.bass
 
 def playBzrpBassline():
     bzrpBass.playBassline()
