@@ -3,6 +3,7 @@ from time import sleep
 import threading
 import crazyFrogMelody
 from noteClass import Note
+import buzzers
 
 buzzPin = 17
 buzzPin2 = 26
@@ -69,7 +70,7 @@ notesMeasure4 = [Note(f_low*2,0,quarter+quarter+sixteenth, octaveLED),
 ]
 
 def playBassNote(freq, duration, rest, *LED):
-        buzz2 = GPIO.PWM(buzzPin2, 87.32)
+        buzz2 = buzzers.buzz2
         buzz2.start(50)
         buzz2.ChangeFrequency(freq)
         GPIO.output(LED, 1)

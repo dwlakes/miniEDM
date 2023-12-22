@@ -15,13 +15,13 @@ import bzrpBass
 import shakiraXcrazyFrog
 import lights
 
-buzzPin = 17
+buzzPin1 = 17
 buzzPin2 = 26
 GPIO.setmode(GPIO.BCM)
 #GPIO.setup(buzzPin, GPIO.OUT)
 #GPIO.setup(buzzPin2, GPIO.OUT)
-#buzz = GPIO.PWM(buzzPin, 349.23)
-#buzz2 = GPIO.PWM(buzzPin2, 87.32)
+# buzz1 = GPIO.PWM(buzzPin1, 349.23)
+# buzz2 = GPIO.PWM(buzzPin2, 87.32)
 
 f = 349.23
 f_low = 87.32
@@ -45,14 +45,16 @@ def playMelody():
     # #bzrp_thread.start()
     
     #bzrpFmin.sorryBaby()
-    crazyFrogMelody.playIntro()
-    bass_line = threading.Thread(target=playBassLine)
-    bass_line.start()
-    crazyFrogMelody.playIntro()
+    #crazyFrogMelody.playIntro()
+    crazyFrogMelody.bridge()
+    # bzrpFmin.rif()
+    # bass_line = threading.Thread(target=playBassLine)
+    # bass_line.start()
+    # crazyFrogMelody.playIntro()
     #bzrpFmin.sorryBaby()
     #GPIO.cleanup()
-    lights_thread = threading.Thread(target=lightsThread)
-    lights_thread.start()
+    # lights_thread = threading.Thread(target=lightsThread)
+    # lights_thread.start()
     #crazyFrogMelody.measure1()
     #     #lights_thread.start()
     # bzrpFmin.rif()

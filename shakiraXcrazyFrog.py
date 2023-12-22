@@ -4,6 +4,7 @@ from noteClass import Note
 # import miniEDMDriver
 import threading
 import lights
+import buzzers
 
 buzzPin = 17
 tonicPin = 4
@@ -66,7 +67,7 @@ notesMeasure2 = [Note(f,quarter/2,quarter/2, tonicPin),
 
 def playMelodyNote(freq, duration, rest, *LED):
     #print("pin: ",pin)
-    buzz = GPIO.PWM(buzzPin, 349.23)
+    buzz = buzzers.buzz1
     buzz.start(50)
     buzz.ChangeFrequency(freq)
     for pin in LED:

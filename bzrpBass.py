@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 from time import sleep
 from noteClass import Note
+import buzzers
 
 buzzPin = 17
 buzzPin2 = 26
@@ -52,7 +53,7 @@ bassChorusNotes = [Note(f_low,eighth, 0),
 ]
 
 def playBassNote(freq, duration, rest, *LED):
-       buzz2 = GPIO.PWM(buzzPin2, 87.32)
+       buzz2 = buzzers.buzz2
        buzz2.start(50)
        buzz2.ChangeFrequency(freq)
        sleep(duration)
