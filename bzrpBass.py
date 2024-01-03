@@ -52,6 +52,20 @@ bassChorusNotes = [Note(f_low,eighth, 0),
     
 ]
 
+bridgeSusNotes = [Note(f_low, quarter*6, 0, None),
+                  Note(f_low*(6/5), quarter+quarter, 0, None),
+                  Note(f_low*(4/3), quarter*6, 0, None),
+                  Note(f_low*(9/8), quarter, 0, None),
+                  Note(f_low*(4/3), eighth/2, eighth/2, None),
+                  Note(f_low*(4/3), eighth/2, eighth/2, None),
+                  Note(f_low, quarter*6, 0, None),
+                  Note(f_low*(6/5), quarter+quarter, 0, None),
+                  Note(f_low*(4/3), quarter*6, 0, None)]
+
+def playBridgeNotes():
+        for note in bridgeSusNotes:
+                playBassNote(note.freq, note.duration, note.rest, note.LED)
+
 def playBassNote(freq, duration, rest, *LED):
        buzz2 = buzzers.buzz2
        buzz2.start(50)

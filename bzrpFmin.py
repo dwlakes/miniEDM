@@ -80,7 +80,7 @@ chorusNotes = [Note(f, eighth*.9, eighth*.1),
     Note(f*(8/9), eighth, 0),
     Note(f*(3/4), eighth, 0)]
 
-bridgeNotes = [Note(f*(3/4), eighth*.9, eighth*.1, cLED),
+bridgeNotesPt1 = [Note(f*(3/4), eighth*.9, eighth*.1, cLED),
     Note(f*(3/4), eighth*.9, eighth*.1, cLED),
     Note(f*(8/9), eighth, 0, EbLED),
     Note(f*(4/5), eighth, 0, DbLED),
@@ -107,8 +107,68 @@ bridgeNotes = [Note(f*(3/4), eighth*.9, eighth*.1, cLED),
     Note(f*(3/4), eighth, 0, cLED),
     Note(f*(4/5), eighth, 0, DbLED),
     Note(f*(4/5), eighth, eighth, DbLED),
-    Note(f*(8/9), eighth, 0, EbLED),
-    Note(f*(8/9), eighth, 0, EbLED)]
+    Note(f*(8/9), eighth*.9, 0, EbLED)]
+
+bridgeNotesPt2 = [Note(f*(8/9), eighth*.9, eighth*.9+eighth, EbLED),
+    Note(f*(3/2), eighth*0.9, eighth*0.1, cLED),
+    Note(f*(3/2), eighth*0.9, eighth*0.1, cLED),
+    Note(f*(3/2), eighth*0.9, eighth*0.1, cLED),
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+    Note(f*(6/5), eighth*0.9, eighth*0.1, AbLED),
+    Note(f*(9/8), eighth*0.9, eighth*0.1, gLED),
+
+    Note(f*(6/5), eighth*0.9, eighth*0.1, AbLED),
+    Note(f*(6/5), eighth*0.9, eighth*0.1, AbLED),
+    Note(f*(6/5), eighth*0.9, eighth*0.1, AbLED),
+    Note(f*(9/8), quarter, 0, gLED),
+    Note(f*(6/5), eighth*0.9, eighth*0.1, AbLED),
+    Note(f, eighth*0.9, eighth*0.1, tonicPin),
+    Note(f, eighth*0.9, eighth*0.1, tonicPin),
+
+    Note(f*(6/5), eighth*0.9, eighth*0.1, AbLED),
+    Note(f*(6/5), eighth*0.9, eighth*0.1, AbLED),
+    Note(f*(6/5), eighth*0.9, eighth*0.1, AbLED),
+    Note(f*(9/8), quarter, 0, gLED),
+    Note(f*(6/5), eighth*0.9, eighth*0.1, AbLED),
+    Note(f, eighth*0.9, eighth*0.1, tonicPin),
+    Note(f, eighth*0.9, eighth*0.1, tonicPin),
+
+    Note(f*(6/5), eighth*0.9, eighth*0.1, AbLED),
+    Note(f*(6/5), eighth*0.9, eighth*0.1, AbLED),
+    Note(f*(6/5), eighth*0.9, eighth*0.1, AbLED),
+    Note(f*(9/8), quarter, 0, gLED),
+    Note(f*(6/5), eighth*0.9, eighth*0.1, AbLED),
+    Note(f, eighth*0.9, eighth*0.1, tonicPin),
+    Note(f, eighth*0.9, eighth*0.1, tonicPin),
+    
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+    Note(f, eighth*0.9, eighth*0.1, tonicPin),
+    Note(f, eighth*0.9, eighth*0.1, tonicPin),
+
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+    Note(f, eighth*0.9, eighth*0.1, tonicPin),
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+    Note(f, quarter*0.9, quarter*0.1, tonicPin),
+    Note(f, eighth*0.9, eighth*0.1, tonicPin),
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+    Note(f*(4/3), eighth*0.9, eighth*0.1, BbLED),
+    Note(f*(3/2), eighth*0.9, eighth*0.1, cLED),
+    Note(f*(3/2), quarter, 0, cLED),
+    ]
 
 introNotesPt1 = [Note(f,quarter,0, tonicPin),
                 Note(f*(9/8), quarter, 0, gLED),
@@ -199,9 +259,15 @@ def chorus():
     for note in chorusNotes:
         playMelodyNote(note.freq, note.duration, note.rest, note.LED)
 
-def bridge():
+def bridgePt1():
+    print("bridg pt 1")
     sleep(quarter)
-    for note in bridgeNotes:
+    for note in bridgeNotesPt1:
+        playMelodyNote(note.freq, note.duration, note.rest, note.LED)
+
+def bridgePt2():
+    print("bridg pt 2")
+    for note in bridgeNotesPt2:
         playMelodyNote(note.freq, note.duration, note.rest, note.LED)
 
 

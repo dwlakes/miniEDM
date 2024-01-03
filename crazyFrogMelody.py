@@ -63,7 +63,8 @@ notesMeasure3 = [Note(f, eighth/2, eighth/2, tonicPin),
                 #Note(f*2, quarter/2, quarter/2, octaveLED)
                 ]
 
-bridgeNotesHigh = [Note(f*(3/2), eighth/2, eighth/2, cLED),
+bridgeNotesHigh = [Note(f_low, eighth/2, eighth/2, octaveLED),
+                Note(f*(3/2), eighth/2, eighth/2, cLED),
                 Note(f*(3/2), eighth/2, eighth/2, cLED),
                 Note(f*(3/2), sixteenth, 0, cLED),
                 Note(f*(9/5), sixteenth, sixteenth, EbLED),
@@ -100,7 +101,8 @@ bridgeNotesHigh = [Note(f*(3/2), eighth/2, eighth/2, cLED),
                 Note(f*(3/2), sixteenth, sixteenth, cLED),
                 Note(f*(3/2), eighth/2, eighth/2+sixteenth, cLED),]
 
-bridgeNotesLow = [Note(f, eighth/2, eighth/2, tonicPin),
+bridgeNotesLow = [Note(f_low, eighth/2, eighth/2, octaveLED),
+                Note(f, eighth/2, eighth/2, tonicPin),
                 Note(f, eighth/2, eighth/2, tonicPin),
                 Note(f, sixteenth, 0, tonicPin),
                 Note(f*(9/8), sixteenth, sixteenth, gLED),

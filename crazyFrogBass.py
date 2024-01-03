@@ -59,15 +59,14 @@ notesMeasure3 = [Note(f_low*(5/6), quarter*.5, quarter*.5, DbLED),
         Note(f_low*(9/5),sixteenth/2,sixteenth/2, EbLED),
         Note(f_low*(3/2),eighth/2,eighth/2, cLED),
         Note(f_low*(9/5),eighth/2,eighth/2, EbLED),
-        Note(f_low*(3/2),eighth/2,eighth/2, cLED)
+        Note(f_low*(3/2),eighth/2,eighth/2+quarter+quarter+sixteenth, cLED)
 ]
 
-notesMeasure4 = [Note(f_low*2,0,quarter+quarter+sixteenth, octaveLED),
+notesMeasure4 = [
         Note(f_low*(9/5),sixteenth,0, EbLED),
         Note(f_low*(3/2),eighth/2,eighth/2, cLED),
         Note(f_low*(4/3),eighth/2,eighth/2, BbLED),
-        Note(f_low*(6/5),eighth/2,eighth/2, AbLED),
-        Note(f_low, quarter/2, quarter/2, tonicLed)       
+        Note(f_low*(6/5),eighth/2,eighth/2, AbLED)     
 ]
 
 def playBassNote(freq, duration, rest, *LED):

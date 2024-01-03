@@ -11,6 +11,8 @@ Bb1LED = 5
 Db1LED = 13
 Eb1LED = 19
 
+GPIO.setmode(GPIO.BCM)
+
 GPIO.setup(tonic1LED, GPIO.OUT)
 GPIO.setup(g1LED, GPIO.OUT)
 GPIO.setup(Ab1LED, GPIO.OUT)
@@ -38,6 +40,7 @@ GPIO.setup(c2LED, GPIO.OUT)
 GPIO.setup(Db2LED, GPIO.OUT)
 GPIO.setup(Eb2LED, GPIO.OUT)
 GPIO.setup(octave2LED, GPIO.OUT)
+
 
 row1lights = [tonic1LED, g1LED, Ab1LED, Bb1LED, c1LED, Db1LED, Eb1LED, octave1LED]
 row2lights = [tonic2LED, g2LED, Ab2LED, Bb2LED, c2LED, Db2LED, Eb2LED, octave2LED]
@@ -233,12 +236,43 @@ def pattern4():
         light2 = row1lights[7-row1lights.index(light)]
         light3 = row2lights[row1lights.index(light)]
         light4 = row2lights[7-row1lights.index(light)]
-        change4Lights(.05, light, light2, light3, light4)      
+        change4Lights(.05, light, light2, light3, light4)
 
+def pattern5():
+    changeLight(.05, row1lights[3])  
+    changeLight(.05, row1lights[5])
+    changeLight(.05, row1lights[2])
+    changeLight(.05, row1lights[4])
+    changeLight(.05, row1lights[1])
+    changeLight(.05, row1lights[7])
+    changeLight(.05, row1lights[0])
+
+def pattern6():
+    change2Lights(.05, row1lights[7], row2lights[4])  
+    change2Lights(.05, row1lights[0], row2lights[1])
+    change2Lights(.05, row1lights[3], row2lights[7])
+    change2Lights(.05, row1lights[2], row2lights[0])
+    change2Lights(.05, row1lights[5], row2lights[3])
+    change2Lights(.05, row1lights[4], row2lights[2])
+    change2Lights(.05, row1lights[1], row2lights[5])
     
+
+def randomPattern():
+    pattern5()
+    pattern5()
+    pattern5()
+    pattern5()
+
+    pattern6()
+    pattern6()
+    pattern6()
+    pattern6()
+        
 
 
 def startLights():
     pattern1()
     pattern2()
-    
+
+
+
