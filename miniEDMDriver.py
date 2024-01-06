@@ -13,7 +13,10 @@ import crazyFrogBass
 import bzrpFmin
 import bzrpBass
 import shakiraXcrazyFrog
-import lights
+import lightsPatterns
+import LCD1602
+
+LCD1602.init(0x27, 1)
 
 buzzPin1 = 17
 buzzPin2 = 26
@@ -31,17 +34,21 @@ eighth = .25*.9
 sixteenth = .125*.9
        
 
+
 def playMelody():
     
+
     crazyFrogMelody.playIntro()
     bass_line = threading.Thread(target=playBassLine)
     bass_line.start()
     crazyFrogMelody.playIntro()
+    bass_line.join()
     crazyFrogMelody.bridge()
     crazyFrogMelody.measure1()
     bzrpFmin.introPt1()
     bass_thread = threading.Thread(target=crazyFrogBass.bassMeasure1)
     bass_thread.start()
+    
     crazyFrogMelody.measure1()
     bzrpFmin.introPt2()
 
@@ -56,27 +63,54 @@ def playMelody():
     crazyFrogMelody.bridge()
     crazyFrogMelody.measure1()
     bzrpFmin.introPt2()
+    lights_thread = threading.Thread(target=lightsPatterns.pattern1)
+    lights_thread.start()
     bzrpFmin.rif()
 
     bzrp_bass_line = threading.Thread(target=playBzrpBassline)
     bzrp_bass_line.start()
-    lights_thread = threading.Thread(target=lights.pattern3)
+    lights_thread = threading.Thread(target=lightsPatterns.pattern3)
     lights_thread.start()
     bzrpFmin.chorus()
+    lights_thread.join()
+
+    # fix
+    lights_thread = threading.Thread(target=lightsPatterns.pattern2and3)
+    lights_thread.start()
     bzrpFmin.bridgePt1()
     bassBridgeThread = threading.Thread(target=bzrpBass.playBridgeNotes)
     bassBridgeThread.start()
+
+    #make pattern 7 + random and longer
+    lights_thread = threading.Thread(target=lightsPatterns.sevenAnd5)
+    lights_thread.start()
     bzrpFmin.bridgePt2()
     bzrpFmin.sorryBaby()
 
-    # rando_lights = threading.Thread(target=lights.randomPattern)
-    # rando_lights.start()
-    # crazyFrogMelody.playIntro()
-    # bzrpFmin.introPt2()
-    # bzrpFmin.sorryBaby()
+    lights_thread = threading.Thread(target=lightsPatterns.pattern8ZigZig)
+    lights_thread.start()
+    bassSorryBabyThread = threading.Thread(target=bzrpBass.playSorryBabyNotes)
+    bassSorryBabyThread.start()
+    
+    # make pattern 9 longer
+    lights_thread = threading.Thread(target=lightsPatterns.pattern9Snake)
+    lights_thread.start()
+    bzrpFmin.sorryBabyPt2()
+    bassSorryBabyThread.join()
+    bassThread = threading.Thread(target=bzrpBass.chorus)
+    bassThread.start()
+    bzrpFmin.introPt1()
+    bzrpFmin.playOutroNotes()
+
+    rando_lights = threading.Thread(target=lightsPatterns.randomPattern)
+    rando_lights.start()
+    crazyFrogMelody.playIntro()
+  
 
 
-    print('\nadios')
+    # print('\nadios')
+    # LCD1602.write(5,0, 'Ciao')
+    # LCD1602.write(6,1, ';)')
 
 def playBassLine():
     crazyFrogBass.playBassLine()
@@ -88,14 +122,16 @@ def playBzrpBassline():
     bzrpBass.playBassline()
 
 def lightsThread():
-    lights.startLights()
+    lightsPatterns.startLights()
         
 
 
 try:
     while True:
+        # LCD1602.clear()
+        # break
         melody_thread = threading.Thread(target=playMelody)
-        bass_line = threading.Thread(target=playBassLine)
+        # # bass_line = threading.Thread(target=playBassLine)
         melody_thread.start()
 
         # rando_lights = threading.Thread(target=lights.pattern6)

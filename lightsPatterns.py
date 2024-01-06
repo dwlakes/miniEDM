@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 from time import sleep
+import buzzersAndLights
 
 # First row
 tonic1LED = 4
@@ -32,14 +33,14 @@ Db2LED = 12
 Eb2LED = 16
 octave2LED = 20
 
-GPIO.setup(tonic2LED, GPIO.OUT)
-GPIO.setup(g2LED, GPIO.OUT)
-GPIO.setup(Ab2LED, GPIO.OUT)
-GPIO.setup(Bb2LED, GPIO.OUT)
-GPIO.setup(c2LED, GPIO.OUT)
-GPIO.setup(Db2LED, GPIO.OUT)
-GPIO.setup(Eb2LED, GPIO.OUT)
-GPIO.setup(octave2LED, GPIO.OUT)
+# GPIO.setup(tonic2LED, GPIO.OUT)
+# GPIO.setup(g2LED, GPIO.OUT)
+# GPIO.setup(Ab2LED, GPIO.OUT)
+# GPIO.setup(Bb2LED, GPIO.OUT)
+# GPIO.setup(c2LED, GPIO.OUT)
+# GPIO.setup(Db2LED, GPIO.OUT)
+# GPIO.setup(Eb2LED, GPIO.OUT)
+# GPIO.setup(octave2LED, GPIO.OUT)
 
 
 row1lights = [tonic1LED, g1LED, Ab1LED, Bb1LED, c1LED, Db1LED, Eb1LED, octave1LED]
@@ -47,38 +48,41 @@ row2lights = [tonic2LED, g2LED, Ab2LED, Bb2LED, c2LED, Db2LED, Eb2LED, octave2LE
 allLights = row1lights + row2lights
 
 def changeLight(duration, light):
-    pwm = GPIO.PWM(light, 100)
+    pwm = buzzersAndLights.lightsDictionary[light]
     pwm.start(50)
     pwm.ChangeFrequency(20) 
     sleep(duration)
     GPIO.output(light, 0)
+    pwm.stop()
 
 def change2Lights(duration, light1, light2):
-    pwm1 = GPIO.PWM(light1, 100)
+    pwm1 = buzzersAndLights.lightsDictionary[light1]
     pwm1.start(50)
     pwm1.ChangeFrequency(20) 
     
-    pwm2 = GPIO.PWM(light2, 100)
+    pwm2 = buzzersAndLights.lightsDictionary[light2]
     pwm2.start(50)
     pwm2.ChangeFrequency(20) 
     sleep(duration)
     GPIO.output(light1, 0)
     GPIO.output(light2, 0)
+    pwm1.stop()
+    pwm2.stop()
 
 def change4Lights(duration, light1, light2, light3, light4):
-    pwm1 = GPIO.PWM(light1, 100)
+    pwm1 = buzzersAndLights.lightsDictionary[light1]
     pwm1.start(50)
     pwm1.ChangeFrequency(20) 
     
-    pwm2 = GPIO.PWM(light2, 100)
+    pwm2 = buzzersAndLights.lightsDictionary[light2]
     pwm2.start(50)
     pwm2.ChangeFrequency(20) 
 
-    pwm3 = GPIO.PWM(light3, 100)
+    pwm3 = buzzersAndLights.lightsDictionary[light3]
     pwm3.start(50)
     pwm3.ChangeFrequency(20) 
-
-    pwm4 = GPIO.PWM(light4, 100)
+    
+    pwm4 = buzzersAndLights.lightsDictionary[light4]
     pwm4.start(50)
     pwm4.ChangeFrequency(20) 
     sleep(duration)
@@ -86,6 +90,10 @@ def change4Lights(duration, light1, light2, light3, light4):
     GPIO.output(light2, 0)
     GPIO.output(light3, 0)
     GPIO.output(light4, 0)
+    pwm1.stop()
+    pwm2.stop()
+    pwm3.stop()
+    pwm4.stop()
 
 
 
@@ -109,22 +117,12 @@ def pattern1():
 
 def pattern2():
     print("pattern 2")
-    for light in row1lights:
-        changeLight(.05, light)
-    for light in reversed(row2lights):
-        changeLight(.05, light)
-    for light in row1lights:
-        changeLight(.05, light)
-    for light in reversed(row2lights):
-        changeLight(.05, light)
-    for light in row1lights:
-        changeLight(.05, light)
-    for light in reversed(row2lights):
-        changeLight(.05, light)
-    for light in row1lights:
-        changeLight(.05, light)
-    for light in reversed(row2lights):
-        changeLight(.05, light)
+    for i in range(5):
+        for light in row1lights:
+            changeLight(.05, light)
+        for light in reversed(row2lights):
+            changeLight(.05, light)
+
 
 def pattern3():
     for light in reversed(row1lights):
@@ -255,6 +253,58 @@ def pattern6():
     change2Lights(.05, row1lights[5], row2lights[3])
     change2Lights(.05, row1lights[4], row2lights[2])
     change2Lights(.05, row1lights[1], row2lights[5])
+
+def pattern7():
+    for i in range(5):
+        for light in row1lights:
+            changeLight(.05, light)
+            changeLight(.05, row2lights[row1lights.index(light)])
+        for light in reversed(row1lights):
+            changeLight(.05, light)
+            changeLight(.05, row2lights[row1lights.index(light)])
+
+
+def pattern8ZigZig():
+
+    for i in range(5):
+        for light in row1lights:
+            if row1lights.index(light) %2 == 0:
+                changeLight(.05, light)
+            else:
+                changeLight(.05, row2lights[row1lights.index(light)])
+
+        for light in reversed(row1lights):
+            if row1lights.index(light) %2 == 0:
+                changeLight(.05, row2lights[row1lights.index(light)])
+            else: 
+                changeLight(.05, light)
+
+def pattern9Snake():
+    for i in range(6):
+        for i in range(0,8,2):
+            # start top 
+            changeLight(.05, row1lights[i])
+            changeLight(.05, row2lights[i])
+
+            #start bottom
+            changeLight(.05, row2lights[i+1])
+            changeLight(.05, row1lights[i+1])
+
+        for i in reversed(range(0,8,2)):
+            # start top 
+            changeLight(.05, row1lights[i])
+            changeLight(.05, row2lights[i])
+
+            #start bottom
+            changeLight(.05, row2lights[i+1])
+            changeLight(.05, row1lights[i+1])
+
+def pattern2and3():
+    pattern2()
+    pattern3()
+
+
+
     
 
 def randomPattern():
@@ -267,6 +317,17 @@ def randomPattern():
     pattern6()
     pattern6()
     pattern6()
+    pattern6()
+
+def sevenAnd5():
+    pattern7()
+    pattern5()
+    pattern5()
+    pattern5()
+    pattern5()
+    pattern6()
+    pattern4()
+   
         
 
 

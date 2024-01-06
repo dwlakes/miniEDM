@@ -3,8 +3,8 @@ from time import sleep
 from noteClass import Note
 # import miniEDMDriver
 import threading
-import lights
-import buzzers
+import lightsPatterns
+import buzzersAndLights
 
 buzzPin = 17
 tonicPin = 4
@@ -197,11 +197,64 @@ sorryBabyNotes = [Note(f*(6/5), eighth, 0, AbLED),
                     Note(f*(4/5), eighth, 0, DbLED),
                     Note(f*(3/4), eighth, quarter, cLED),
                     Note(f*(2/3), eighth, 0, BbLED),
-                    Note(f*(3/4), eighth, quarter, cLED)]
+                    Note(f*(3/4), eighth, 0, cLED)]
+
+sorryBabyPt2Notes = [#Note(f, quarter, 0, tonicPin),
+                Note(f*(3/2), eighth, 0, cLED),
+                Note(f*(4/3), eighth, quarter, BbLED),
+                Note(f*(4/3), eighth, 0, BbLED),
+                Note(f*(6/5), eighth, quarter, AbLED),
+
+                Note(f, eighth*0.9, eighth*0.1, tonicPin),
+                Note(f, eighth, 0, tonicPin),
+                Note(f*(9/8), eighth, 0, gLED),
+                Note(f*(8/9), eighth, 0, EbLED),
+                Note(f*(8/9), eighth, 0, EbLED),
+                Note(f, eighth, quarter, tonicPin),
+
+                Note(f*(3/2), eighth, 0, cLED),
+                Note(f*(9/5), eighth, quarter, cLED),
+                Note(f*(4/3), eighth, 0, BbLED),
+                Note(f*(6/5), eighth, quarter, AbLED),
+
+                Note(f, eighth*0.9, eighth*0.1, tonicPin),
+                Note(f, eighth, 0, tonicPin),
+                Note(f*(9/8), eighth, 0, gLED),
+                Note(f*(8/9), eighth, 0, EbLED),
+                Note(f*(8/9), eighth, 0, EbLED),
+                Note(f, eighth, quarter, tonicPin),
+
+                Note(f*(3/2), eighth*0.9, eighth*0.1, cLED),
+                Note(f*(3/2), eighth*0.9, eighth*0.1, cLED),
+                Note(f*(3/2), eighth*0.9, eighth*0.1, cLED),
+                Note(f*(4/3), eighth, 0, BbLED),
+                Note(f*(3/2), eighth, 0, cLED),
+                Note(f*(4/3), eighth, 0, BbLED),
+
+                Note(f*(3/2), eighth*0.9, eighth*0.1, cLED),
+                Note(f*(3/2), eighth*0.9, eighth*0.1, cLED),
+                Note(f*(3/2), eighth*0.9, eighth*0.1, cLED),
+                Note(f*(4/3), eighth, 0, BbLED),
+                Note(f*(3/2), eighth, 0, cLED),
+                Note(f*(4/3), eighth, 0, BbLED),
+                Note(f*(6/5), eighth, 0, AbLED),
+                Note(f*(9/8), eighth, 0, gLED)
+                ]
+
+outroNotesPt2 = [Note(f,quarter,0, tonicPin),
+                Note(f*(9/8), quarter, 0, gLED),
+                Note(f*(6/5), eighth, 0, AbLED),
+                Note(f*2, quarter, 0, octaveLED),
+                Note(f*(9/5), quarter, quarter, cLED),
+                Note(f*(3/2), eighth/2, eighth/2, cLED),
+                Note(f*(3/2), eighth, 0, cLED),
+                Note(f*(4/3), eighth, 0, BbLED),
+                Note(f*(6/5), eighth, 0, AbLED),
+                Note(f*(9/8), eighth, 0, gLED)]
 
 def playMelodyNote(freq, duration, rest, *LED):
     #print("pin: ",pin)
-    buzz = buzzers.buzz1
+    buzz = buzzersAndLights.buzz1
     buzz.start(50)
     buzz.ChangeFrequency(freq)
     for pin in LED:
@@ -225,6 +278,17 @@ def introPt2():
 def sorryBaby():
     for note in sorryBabyNotes:
         playMelodyNote(note.freq, note.duration, note.rest, note.LED)
+
+def sorryBabyPt2():
+    sleep(quarter)
+    for note in sorryBabyPt2Notes:
+        playMelodyNote(note.freq, note.duration, note.rest, None)
+
+def playOutroNotes():
+    for note in outroNotesPt2:
+        playMelodyNote(note.freq, note.duration, note.rest, note.LED)
+
+        
 
        
 
@@ -253,7 +317,7 @@ def chorus():
     for note in chorusNotes:
         playMelodyNote(note.freq, note.duration, note.rest, note.LED)
     
-    lights_thread = threading.Thread(target=lights.pattern4)
+    lights_thread = threading.Thread(target=lightsPatterns.pattern4)
     lights_thread.start()
     
     for note in chorusNotes:
@@ -263,12 +327,12 @@ def bridgePt1():
     print("bridg pt 1")
     sleep(quarter)
     for note in bridgeNotesPt1:
-        playMelodyNote(note.freq, note.duration, note.rest, note.LED)
+        playMelodyNote(note.freq, note.duration, note.rest, None)
 
 def bridgePt2():
     print("bridg pt 2")
     for note in bridgeNotesPt2:
-        playMelodyNote(note.freq, note.duration, note.rest, note.LED)
+        playMelodyNote(note.freq, note.duration, note.rest, None)
 
 
 

@@ -3,7 +3,7 @@ from time import sleep
 import noteClass
 import threading
 from noteClass import Note
-import buzzers
+import buzzersAndLights
 
 buzzPin = 17
 tonicPin = 4
@@ -58,7 +58,7 @@ notesMeasure3 = [Note(f, eighth/2, eighth/2, tonicPin),
                 Note(f*(8/9), sixteenth/2, sixteenth/2, EbLED),
                 Note(f*(2/3), eighth/2, eighth/2, cLED),
                 Note(f*(9/8), eighth/2, eighth/2, gLED),
-                Note(f, quarter/2, quarter/2 + 0.9 + quarter +quarter, tonicPin),
+                Note(f, quarter/2, quarter/2 + quarter +quarter+eighth, tonicPin),
                 #Note(f*2, quarter/2, quarter/2, octaveLED),
                 #Note(f*2, quarter/2, quarter/2, octaveLED)
                 ]
@@ -143,7 +143,7 @@ bridgeNotesLow = [Note(f_low, eighth/2, eighth/2, octaveLED),
 count = 0
 
 def playMelodyNote(freq, duration, rest, *LED):
-       buzz = buzzers.buzz1
+       buzz = buzzersAndLights.buzz1
        #print("pin: ",pin)
        buzz.start(50)
        buzz.ChangeFrequency(freq)
@@ -155,8 +155,8 @@ def playMelodyNote(freq, duration, rest, *LED):
        sleep(rest)
 
 def playBridgeNote(freq1, freq2, duration, rest, LED1, LED2):
-        buzz1 = buzzers.buzz1
-        buzz2 = buzzers.buzz2
+        buzz1 = buzzersAndLights.buzz1
+        buzz2 = buzzersAndLights.buzz2
 
         buzz1.start(50)
         buzz2.start(50)

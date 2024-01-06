@@ -3,7 +3,7 @@ from time import sleep
 import threading
 import crazyFrogMelody
 from noteClass import Note
-import buzzers
+import buzzersAndLights
 
 buzzPin = 17
 buzzPin2 = 26
@@ -62,6 +62,7 @@ notesMeasure3 = [Note(f_low*(5/6), quarter*.5, quarter*.5, DbLED),
         Note(f_low*(3/2),eighth/2,eighth/2+quarter+quarter+sixteenth, cLED)
 ]
 
+
 notesMeasure4 = [
         Note(f_low*(9/5),sixteenth,0, EbLED),
         Note(f_low*(3/2),eighth/2,eighth/2, cLED),
@@ -70,7 +71,7 @@ notesMeasure4 = [
 ]
 
 def playBassNote(freq, duration, rest, *LED):
-        buzz2 = buzzers.buzz2
+        buzz2 = buzzersAndLights.buzz2
         buzz2.start(50)
         buzz2.ChangeFrequency(freq)
         GPIO.output(LED, 1)

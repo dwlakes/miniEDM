@@ -3,8 +3,8 @@ from time import sleep
 from noteClass import Note
 # import miniEDMDriver
 import threading
-import lights
-import buzzers
+import lightsPatterns
+import buzzersAndLights
 
 buzzPin = 17
 tonicPin = 4
@@ -67,7 +67,7 @@ notesMeasure2 = [Note(f,quarter/2,quarter/2, tonicPin),
 
 def playMelodyNote(freq, duration, rest, *LED):
     #print("pin: ",pin)
-    buzz = buzzers.buzz1
+    buzz = buzzersAndLights.buzz1
     buzz.start(50)
     buzz.ChangeFrequency(freq)
     for pin in LED:
