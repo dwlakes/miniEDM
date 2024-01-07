@@ -128,20 +128,9 @@ def lightsThread():
 
 try:
     while True:
-        # LCD1602.clear()
-        # break
         melody_thread = threading.Thread(target=playMelody)
-        # # bass_line = threading.Thread(target=playBassLine)
         melody_thread.start()
 
-        # rando_lights = threading.Thread(target=lights.pattern6)
-        # rando_lights.start()
-        # bzrpFmin.transition()
-        # lights_thread = threading.Thread(target=lightsThread)
-        # lights_thread.start()
-        # bzrpFmin.rif()
-        #bass_line.start()
-        #GPIO.cleanup()
         print('\nadios')
         exit()
         

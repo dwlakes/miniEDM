@@ -288,10 +288,7 @@ def playOutroNotes():
     for note in outroNotesPt2:
         playMelodyNote(note.freq, note.duration, note.rest, note.LED)
 
-        
-
-       
-
+    
 def transition():
     pwm = GPIO.PWM(lightsQueue.pop(0), 100)
     pwm.start(50)
